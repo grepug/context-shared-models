@@ -9,11 +9,13 @@ import Foundation
 
 public struct WordSuggestionsOutput: CoSendable {
     public struct TokenItem: CoSendable {
+        public let id: String
         public let token: String
         public let range: [Int]
         public let adjacentText: String
 
-        public init(token: String, range: [Int], adjacentText: String) {
+        public init(id: String = UUID().uuidString, token: String, range: [Int], adjacentText: String) {
+            self.id = id
             self.token = token
             self.range = range
             self.adjacentText = adjacentText
