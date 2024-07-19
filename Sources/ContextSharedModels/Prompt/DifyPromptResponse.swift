@@ -13,3 +13,13 @@ public struct DifySSEResponse: CoSendable {
     public let id: String
     public let answer: String
 }
+
+public struct PromptInternalResponse<Answer: Codable>: Codable {
+    public let message_id: String?
+    public let answer: Answer?
+
+    public init(message_id: String?, answer: Answer?) {
+        self.message_id = message_id
+        self.answer = answer
+    }
+}
