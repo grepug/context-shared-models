@@ -23,10 +23,10 @@ public struct WordSuggestionsOutput: CoSendable {
     }
 
     public let tokens: [TokenItem]?
-    public let items: [Int: WordSuggestionsOutputItem]?
-    public let error: [Int: String]?
+    public let items: [String: WordSuggestionsOutputItem]?
+    public let error: [String: String]?
 
-    public init(tokens: [TokenItem]? = nil, items: [Int: WordSuggestionsOutputItem]? = nil, error: [Int: String]? = nil) {
+    public init(tokens: [TokenItem]? = nil, items: [String: WordSuggestionsOutputItem]? = nil, error: [String: String]? = nil) {
         precondition(tokens != nil || items != nil || error != nil, "At least one of tokens, items, or error must be non-nil")
 
         self.tokens = tokens
