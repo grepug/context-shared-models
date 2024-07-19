@@ -7,8 +7,8 @@
 
 import Foundation
 
-public struct WordSuggestionsOutput: Codable, Sendable {
-    public struct TokenItem: Codable, Sendable {
+public struct WordSuggestionsOutput: CoSendable {
+    public struct TokenItem: CoSendable {
         public let token: String
         public let range: [Int]
         public let adjacentText: String
