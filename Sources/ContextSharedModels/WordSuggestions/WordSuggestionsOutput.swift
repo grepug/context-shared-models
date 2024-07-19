@@ -27,8 +27,6 @@ public struct WordSuggestionsOutput: CoSendable {
     public let error: [String: String]?
 
     public init(tokens: [TokenItem]? = nil, items: [String: WordSuggestionsOutputItem]? = nil, error: [String: String]? = nil) {
-        precondition(tokens != nil || items != nil || error != nil, "At least one of tokens, items, or error must be non-nil")
-
         self.tokens = tokens
         self.items = items
         self.error = error
