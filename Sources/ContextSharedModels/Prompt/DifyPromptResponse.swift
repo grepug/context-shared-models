@@ -12,9 +12,15 @@ public struct DifySSEResponse: CoSendable {
     public let task_id: String
     public let id: String
     public let answer: String
+
+    public var internalResponse: PromptInternalResponse<String> {
+        return .init(message_id: message_id, answer: answer)
+    }
 }
 
-public struct PromptInternalResponse<Answer: Codable>: Codable {
+extension String: CoSendable {}
+
+public struct PromptInternalResponse<Answer: CoSendable>: CoSendable {
     public let message_id: String?
     public let answer: Answer?
 
