@@ -11,10 +11,10 @@ public struct WordLookUpInContextInput: CoSendable {
     public let langs: String
     public let adja: String
 
-    public init(text: String, word: String, langs: String, adja: String) {
+    public init(text: String, word: String, langs: [CTLocale] = [.en, .zh_Hans], adja: String) {
         self.text = text
         self.word = word
-        self.langs = langs
+        self.langs = langs.map { $0.rawValue }.joined(separator: ",")
         self.adja = adja
     }
 }
