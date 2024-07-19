@@ -14,7 +14,7 @@ public struct DifySSEResponse: CoSendable {
     public let answer: String
 
     public var internalResponse: PromptInternalResponse<String> {
-        return .init(message_id: message_id, answer: answer)
+        return .init(answer: answer, message_id: message_id)
     }
 }
 
@@ -24,7 +24,7 @@ public struct PromptInternalResponse<Answer: CoSendable>: CoSendable {
     public let message_id: String?
     public let answer: Answer?
 
-    public init(message_id: String?, answer: Answer?) {
+    public init(answer: Answer?, message_id: String? = nil) {
         self.message_id = message_id
         self.answer = answer
     }
