@@ -16,6 +16,11 @@ extension ContextModel {
         public struct SegmentItem: Hashable, Codable {
             public var id: ContextModelID
             public var segment: ContextModel.ContextSegment.Segment
+
+            public init(id: ContextModelID, segment: ContextModel.ContextSegment.Segment) {
+                self.id = id
+                self.segment = segment
+            }
         }
 
         public var id: ContextModelID
