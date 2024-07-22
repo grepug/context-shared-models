@@ -96,6 +96,17 @@ extension SRange {
         let end = string.distance(from: string.startIndex, to: upperBound)
         return .init(lowerBound: start, upperBound: end)
     }
+
+    public func attributedStringRange(in string: String) -> Range<AttributedString.Index> {
+        let start = string.distance(from: string.startIndex, to: lowerBound)
+        let end = string.distance(from: string.startIndex, to: upperBound)
+        let attributedString = AttributedString(string)
+
+        let lower = attributedString.index(attributedString.startIndex, offsetByCharacters: start)
+        let upper = attributedString.index(attributedString.startIndex, offsetByCharacters: end)
+
+        return lower..<upper
+    }
 }
 
 extension NSRange {
