@@ -7,12 +7,12 @@
 
 import Foundation
 
-public protocol ContextModelKind: Codable, Hashable, Identifiable {
+public protocol ContextModelKind: Codable, Hashable, Identifiable, CoSendable {
     static var typeName: String { get }
-    
+
     var id: ContextModelID { get }
     var createdAt: Date { get }
-    
+
     init()
 }
 
