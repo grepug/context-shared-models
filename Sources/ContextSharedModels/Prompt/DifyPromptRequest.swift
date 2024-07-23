@@ -5,7 +5,7 @@
 //  Created by Kai Shao on 2024/7/18.
 //
 
-public protocol CoSendable: Codable, Sendable {}
+public typealias CoSendable = Codable & Sendable
 
 public struct DifyPromptRequest<Input: CoSendable>: CoSendable {
     public let id: String
