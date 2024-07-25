@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct CharacterRange: Hashable, Codable {
+public struct CharacterRange: Hashable, CoSendable {
     public let lowerBound: Int
     public let upperBound: Int
 

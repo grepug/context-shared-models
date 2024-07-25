@@ -13,7 +13,7 @@ extension ContextModel {
             "Context"
         }
 
-        public struct SegmentItem: Hashable, Codable {
+        public struct SegmentItem: Hashable, CoSendable {
             public var id: ContextModelID
             public var segment: ContextModel.ContextSegment.Segment
 

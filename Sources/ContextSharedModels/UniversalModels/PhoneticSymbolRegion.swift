@@ -1,4 +1,4 @@
-public enum PhoneticSymbolRegion: String, Codable, CodingKeyRepresentable, CaseIterable {
+public enum PhoneticSymbolRegion: String, CoSendable, CodingKeyRepresentable, CaseIterable {
     case uk = "UK"
     case us = "US"
 

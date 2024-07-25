@@ -117,7 +117,7 @@ extension ContextModel {
 }
 
 extension ContextModel.ContextSegment {
-    public enum Segment: Hashable, Codable {
+    public enum Segment: Hashable, CoSendable {
         case textRange(CharacterRange)
 
         public var textRange: CharacterRange? {
