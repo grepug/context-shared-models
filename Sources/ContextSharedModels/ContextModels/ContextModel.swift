@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol ContextModelKind: Codable, Hashable, Identifiable, CoSendable {
+public protocol ContextModelKind: Hashable, Identifiable, CoSendable {
     static var typeName: String { get }
 
     var id: ContextModelID { get }
@@ -19,3 +19,14 @@ public protocol ContextModelKind: Codable, Hashable, Identifiable, CoSendable {
 public typealias ContextModelID = String
 
 public enum ContextModel {}
+
+extension ContextModel {
+    public enum PartOfSpeech: CoSendable, CaseIterable {
+        case noun
+        case verb
+        case adjective
+        case adverb
+        case idiom
+        case pv
+    }
+}
