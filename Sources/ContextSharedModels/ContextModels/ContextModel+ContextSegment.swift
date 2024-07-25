@@ -8,7 +8,7 @@
 import Foundation
 
 extension ContextModel {
-    public struct ContextSegment: ContextModelKind {
+    public struct ContextSegment: ContextModelKind, TokenKind {
         public static var typeName: String {
             "ContextSegment"
         }
@@ -20,11 +20,19 @@ extension ContextModel {
         public var segment: Segment
         public var text: String
         public var lemma: String
-        public var pos: String
+        public var pos: PartOfSpeech?
         public var synonym: String?
+        public var tag: ContextModel.TokenTag?
         public var sense: LocaledStringDict
         public var desc: LocaledStringDict
         public var temporary: Bool
+
+        public var range: [Int] {
+            switch segment {
+            case .textRange(let segmentTextRange):
+                return [segmentTextRange.lowerBound, segmentTextRange.upperBound]
+            }
+        }
 
         // optional has context item
         public var context: ContextModel.Context?
@@ -69,7 +77,7 @@ extension ContextModel {
 
         public init(
             id: ContextModelID = Foundation.UUID().uuidString, createdAt: Date = .now, contextID: ContextModelID? = nil, segment: Segment = .textRange(.placeholder), text: String = "",
-            lemma: String = "", pos: String = "", synonym: String? = nil, sense: LocaledStringDict = [:], desc: LocaledStringDict = [:], phoneticSymbols: PhoniticSymbolDict = [:],
+            lemma: String = "", pos: PartOfSpeech? = nil, synonym: String? = nil, sense: LocaledStringDict = [:], desc: LocaledStringDict = [:], phoneticSymbols: PhoniticSymbolDict = [:],
             context: Context? = nil, temporary: Bool = false
         ) {
             self.id = id
@@ -87,7 +95,8 @@ extension ContextModel {
         }
 
         public init?(
-            id: ContextModelID, createdAt: Date = .now, contextID: ContextModelID? = nil, segmentString: String?, text: String = "", lemma: String = "", pos: String = "", synonym: String? = nil,
+            id: ContextModelID, createdAt: Date = .now, contextID: ContextModelID? = nil, segmentString: String?, text: String = "", lemma: String = "", pos: PartOfSpeech? = nil,
+            synonym: String? = nil,
             sense: LocaledStringDict = [:], desc: LocaledStringDict = [:], context: Context? = nil, temporary: Bool = false
         ) {
             guard let segmentString,

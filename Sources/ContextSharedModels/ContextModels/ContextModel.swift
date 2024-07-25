@@ -18,7 +18,21 @@ public protocol ContextModelKind: Hashable, Identifiable, CoSendable {
 
 public typealias ContextModelID = String
 
-public enum ContextModel {}
+public enum ContextModel {
+}
+
+extension ContextModel {
+    public enum TokenTag: CoSendable, Hashable {
+        case person, organization, place
+    }
+
+    public protocol TokenKind: CoSendable, Hashable {
+        var text: String { get }
+        var range: [Int] { get }
+        var tag: TokenTag? { get }
+        var pos: ContextModel.PartOfSpeech? { get }
+    }
+}
 
 extension ContextModel {
     public enum PartOfSpeech: String, CoSendable, CaseIterable {
@@ -28,5 +42,24 @@ extension ContextModel {
         case adverb
         case idiom
         case pv
+    }
+
+    public struct TokenItem: TokenKind {
+        public let id: String
+        public let text: String
+        public let range: [Int]
+        public let adjacentText: String
+        public let pos: ContextModel.PartOfSpeech?
+        public let lemma: String?
+        public var tag: TokenTag?
+
+        public init(id: String = UUID().uuidString, text: String, range: [Int], adjacentText: String, pos: ContextModel.PartOfSpeech? = nil, lemma: String? = nil) {
+            self.id = id
+            self.text = text
+            self.range = range
+            self.adjacentText = adjacentText
+            self.pos = pos
+            self.lemma = lemma
+        }
     }
 }
