@@ -13,12 +13,14 @@ public struct WordSuggestionsOutput: CoSendable {
         public let token: String
         public let range: [Int]
         public let adjacentText: String
+        public let pos: ContextModel.PartOfSpeech
 
-        public init(id: String = UUID().uuidString, token: String, range: [Int], adjacentText: String) {
+        public init(id: String = UUID().uuidString, token: String, range: [Int], adjacentText: String, pos: ContextModel.PartOfSpeech) {
             self.id = id
             self.token = token
             self.range = range
             self.adjacentText = adjacentText
+            self.pos = pos
         }
     }
 
