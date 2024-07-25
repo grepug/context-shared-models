@@ -18,17 +18,17 @@ public typealias LocaledStringDict = [CTLocale: String]
 
 public struct WordSuggestionsOutputItem: Identifiable, Hashable, CoSendable {
     public var word: String
-    public var pos: String
+    public var pos: ContextModel.PartOfSpeech
     public var synonym: String?
     public var lemma: String
     public var sense: LocaledStringDict
     public var desc: LocaledStringDict
 
     public var id: String {
-        word + pos
+        word + pos.rawValue
     }
 
-    public init(word: String = "", pos: String = "", lemma: String = "", synonym: String? = nil, sense: LocaledStringDict = [:], desc: LocaledStringDict = [:]) {
+    public init(word: String = "", pos: ContextModel.PartOfSpeech = .verb, lemma: String = "", synonym: String? = nil, sense: LocaledStringDict = [:], desc: LocaledStringDict = [:]) {
         self.word = word
         self.pos = pos
         self.lemma = lemma
@@ -37,7 +37,7 @@ public struct WordSuggestionsOutputItem: Identifiable, Hashable, CoSendable {
         self.desc = desc
     }
 
-    public init(word: String, pos: String, lemma: String, synonym: String?, sense: String, desc: String) {
+    public init(word: String, pos: ContextModel.PartOfSpeech = .verb, lemma: String, synonym: String?, sense: String, desc: String) {
         self.word = word
         self.pos = pos
         self.lemma = lemma

@@ -21,7 +21,7 @@ public typealias ContextModelID = String
 public enum ContextModel {}
 
 extension ContextModel {
-    public enum PartOfSpeech: CoSendable, CaseIterable {
+    public enum PartOfSpeech: String, CoSendable, CaseIterable {
         case noun
         case verb
         case adjective

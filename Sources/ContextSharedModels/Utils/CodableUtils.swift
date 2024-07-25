@@ -1,9 +1,15 @@
 import Foundation
 
 extension Encodable {
-    public func toString() throws -> String {
+    public func toString(pretty: Bool = false) throws -> String {
         do {
-            return String(data: try JSONEncoder().encode(self), encoding: .utf8)!
+            let encoder = JSONEncoder()
+
+            if pretty {
+                encoder.outputFormatting = .prettyPrinted
+            }
+
+            return String(data: try encoder.encode(self), encoding: .utf8)!
         } catch {
             throw error
         }
