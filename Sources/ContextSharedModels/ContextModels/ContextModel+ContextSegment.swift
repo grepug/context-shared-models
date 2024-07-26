@@ -27,6 +27,11 @@ extension ContextModel {
         public var desc: LocaledStringDict
         public var temporary: Bool
 
+        // if the lemma is nil, then use the text as the lemma
+        public var normalizedLemma: String {
+            lemma ?? text
+        }
+
         public var range: [Int] {
             switch segment {
             case .textRange(let segmentTextRange):
