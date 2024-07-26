@@ -6,13 +6,13 @@ extension ContextModel {
             "EntrySense"
         }
 
-        public var id: String
+        public var id: ID
         public var createdAt: Date
         public var entryID: String?
         public var pos: PartOfSpeech
-        public var localizedTexts: [ContextModel.LocalizedText]
+        public var localizedTexts: [LocalizedText]
 
-        public init(id: String, createdAt: Date = .now, entryID: String? = nil, pos: PartOfSpeech = .noun, localizedTexts: [ContextModel.LocalizedText] = []) {
+        public init(id: ID, createdAt: Date = .now, entryID: ID? = nil, pos: PartOfSpeech = .noun, localizedTexts: [ContextModel.LocalizedText] = []) {
             self.id = id
             self.createdAt = createdAt
             self.entryID = entryID
@@ -21,7 +21,7 @@ extension ContextModel {
         }
 
         public init() {
-            self.init(id: Foundation.UUID().uuidString)
+            self.init(id: UUID().uuidString)
         }
     }
 }

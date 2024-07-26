@@ -10,15 +10,14 @@ import Foundation
 public protocol ContextModelKind: Hashable, Identifiable, CoSendable {
     static var typeName: String { get }
 
-    var id: ContextModelID { get }
+    var id: ContextModel.ID { get }
     var createdAt: Date { get }
 
     init()
 }
 
-public typealias ContextModelID = String
-
 public enum ContextModel {
+    public typealias ID = String
 }
 
 extension ContextModel {

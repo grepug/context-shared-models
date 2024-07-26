@@ -13,15 +13,15 @@ extension ContextModel {
             "Collection"
         }
 
-        public var id: String
+        public var id: ID
         public var createdAt: Date
         public var title: String
         public var description: String
         public var coverImageURL: URL?
-        public var directoryID: ContextModelID?
+        public var directoryID: ID?
         public var temporary: Bool
 
-        public init(id: String, createdAt: Date = .now, title: String = "", description: String = "", coverImageURL: URL? = nil, directoryID: ContextModelID? = nil, temporary: Bool = false) {
+        public init(id: ID, createdAt: Date = .now, title: String = "", description: String = "", coverImageURL: URL? = nil, directoryID: ID? = nil, temporary: Bool = false) {
             self.id = id
             self.createdAt = createdAt
             self.title = title
@@ -32,7 +32,7 @@ extension ContextModel {
         }
 
         public init() {
-            self.init(id: Foundation.UUID().uuidString)
+            self.init(id: UUID().uuidString)
         }
     }
 }

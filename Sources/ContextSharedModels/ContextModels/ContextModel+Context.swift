@@ -14,24 +14,24 @@ extension ContextModel {
         }
 
         public struct SegmentItem: Hashable, CoSendable {
-            public var id: ContextModelID
+            public var id: ID
             public var segment: ContextModel.ContextSegment.Segment
 
-            public init(id: ContextModelID, segment: ContextModel.ContextSegment.Segment) {
+            public init(id: ID, segment: ContextModel.ContextSegment.Segment) {
                 self.id = id
                 self.segment = segment
             }
         }
 
-        public var id: ContextModelID
+        public var id: ID
         public var createdAt: Date
         public var temporary: Bool
-        public var collectionID: ContextModelID?
+        public var collectionID: ID?
         public var text: String?
         public var imageURL: URL?
         public var segments: [SegmentItem] = []
 
-        public init(id: ContextModelID, createdAt: Date = .now, collectionID: ContextModelID? = nil, text: String? = nil, imageURL: URL? = nil, segments: [SegmentItem] = [], temporary: Bool = false) {
+        public init(id: ID, createdAt: Date = .now, collectionID: ID? = nil, text: String? = nil, imageURL: URL? = nil, segments: [SegmentItem] = [], temporary: Bool = false) {
             self.id = id
             self.createdAt = createdAt
             self.collectionID = collectionID

@@ -13,13 +13,13 @@ extension ContextModel {
             "Directory"
         }
 
-        public var id: ContextModelID
+        public var id: ID
         public var createdAt: Date
-        public var parentID: ContextModelID?
+        public var parentID: ID?
         public var title: String
         public var temporary: Bool
 
-        public init(id: ContextModelID, createdAt: Date = .now, parentID: ContextModelID? = nil, title: String = "", temporary: Bool = false) {
+        public init(id: ID, createdAt: Date = .now, parentID: ID? = nil, title: String = "", temporary: Bool = false) {
             self.id = id
             self.createdAt = createdAt
             self.parentID = parentID
@@ -28,7 +28,7 @@ extension ContextModel {
         }
 
         public init() {
-            self.init(id: Foundation.UUID().uuidString)
+            self.init(id: UUID().uuidString)
         }
     }
 }
