@@ -19,7 +19,7 @@ extension ContextModel {
         public var collectionID: ContextModelID?
         public var segment: Segment
         public var text: String
-        public var lemma: String
+        public var lemma: String?
         public var pos: PartOfSpeech?
         public var synonym: String?
         public var tag: ContextModel.TokenTag?
