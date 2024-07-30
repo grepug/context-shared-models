@@ -35,7 +35,7 @@ extension ContextModel {
         /// Sense ID of the entry sense that this segment belongs to.
         ///
         /// This is used to link the segment to the entry sense.
-        public var entrySenseID: ID?
+        public var entrySense: EntrySense?
         /// Entry ID of the entry that this segment belongs to.
         ///
         /// This is used to link the segment to the entry.
