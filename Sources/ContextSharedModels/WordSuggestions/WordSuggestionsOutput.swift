@@ -13,9 +13,11 @@ public struct WordSuggestionsOutput: CoSendable {
     public let tokens: [TokenItem]?
     public let items: [String: ContextModel.ContextSegment]?
     public let error: [String: String]?
+    public let suggestedTokenIds: [String]?
 
-    public init(tokens: [TokenItem]? = nil, items: [String: ContextModel.ContextSegment]? = nil, error: [String: String]? = nil) {
+    public init(tokens: [TokenItem]? = nil, suggestedTokenIds: [String]? = nil, items: [String: ContextModel.ContextSegment]? = nil, error: [String: String]? = nil) {
         self.tokens = tokens
+        self.suggestedTokenIds = suggestedTokenIds
         self.items = items
         self.error = error
     }
