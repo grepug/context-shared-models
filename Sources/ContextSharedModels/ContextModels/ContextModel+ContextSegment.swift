@@ -49,9 +49,26 @@ extension ContextModel {
         }
 
         public var range: [Int] {
-            switch segment {
-            case .textRange(let segmentTextRange):
-                return [segmentTextRange.lowerBound, segmentTextRange.upperBound]
+            get {
+                switch segment {
+                case .textRange(let segmentTextRange):
+                    return [segmentTextRange.lowerBound, segmentTextRange.upperBound]
+                }
+
+            }
+            set {
+                guard newValue.count == 2 else {
+                    return
+                }
+
+                let lowerBound = newValue[0]
+                let upperBound = newValue[1]
+
+                switch segment {
+                case .textRange(var segmentTextRange):
+                    segmentTextRange = CharacterRange(lowerBound: lowerBound, upperBound: upperBound)
+                    segment = .textRange(segmentTextRange)
+                }
             }
         }
 

@@ -26,10 +26,19 @@ extension ContextModel {
     }
 
     public protocol TokenKind: CoSendable, Hashable {
-        var text: String { get }
-        var range: [Int] { get }
-        var tag: TokenTag? { get }
-        var pos: ContextModel.PartOfSpeech? { get }
+        var text: String { get set }
+        var range: [Int] { get set }
+        var tag: TokenTag? { get set }
+        var pos: ContextModel.PartOfSpeech? { get set }
+    }
+}
+
+extension ContextModel.TokenKind {
+    public mutating func from<T: ContextModel.TokenKind>(_ item: T) {
+        text = item.text
+        range = item.range
+        tag = item.tag
+        pos = item.pos
     }
 }
 
@@ -45,11 +54,11 @@ extension ContextModel {
 
     public struct TokenItem: TokenKind {
         public let id: String
-        public let text: String
-        public let range: [Int]
+        public var text: String
+        public var range: [Int]
         public let adjacentText: String
-        public let pos: ContextModel.PartOfSpeech?
-        public let lemma: String?
+        public var pos: ContextModel.PartOfSpeech?
+        public var lemma: String?
         public var tag: TokenTag?
 
         public init(id: String = UUID().uuidString, text: String, range: [Int], adjacentText: String, pos: ContextModel.PartOfSpeech? = nil, lemma: String? = nil) {
