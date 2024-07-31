@@ -9,9 +9,13 @@ import Foundation
 
 public enum CTLocale: String, CodingKeyRepresentable, CoSendable {
     case en
-    case zh_Hans = "zh-Hans"
-    case zh_Hant = "zh-Hant"
+    case zh_Hans
+    case zh_Hant
     case ja, fr
+
+    public var dashedRepresentation: String {
+        rawValue.replacingOccurrences(of: "_", with: "-")
+    }
 }
 
 public typealias LocaledStringDict = [CTLocale: String]
