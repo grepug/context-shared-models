@@ -20,9 +20,9 @@ public enum CTLocale: String, CodingKeyRepresentable, CoSendable {
     public init?(_ key: String) {
         if let value = CTLocale(rawValue: key.replacingOccurrences(of: "-", with: "_")) {
             self = value
+        } else {
+            return nil
         }
-
-        return nil
     }
 }
 
