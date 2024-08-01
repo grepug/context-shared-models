@@ -30,6 +30,7 @@ extension ContextModel {
         var range: [Int] { get set }
         var tag: TokenTag? { get set }
         var pos: ContextModel.PartOfSpeech? { get set }
+        var lemma: String? { get set }
     }
 }
 
@@ -39,6 +40,7 @@ extension ContextModel.TokenKind {
         range = item.range
         tag = item.tag
         pos = item.pos
+        lemma = item.lemma
     }
 }
 
