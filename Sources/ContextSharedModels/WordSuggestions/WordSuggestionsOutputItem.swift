@@ -16,6 +16,14 @@ public enum CTLocale: String, CodingKeyRepresentable, CoSendable {
     public var dashedRepresentation: String {
         rawValue.replacingOccurrences(of: "_", with: "-")
     }
+
+    public init?(_ key: String) {
+        if let value = CTLocale(rawValue: key.replacingOccurrences(of: "-", with: "_")) {
+            self = value
+        }
+
+        return nil
+    }
 }
 
 public typealias LocaledStringDict = [CTLocale: String]
