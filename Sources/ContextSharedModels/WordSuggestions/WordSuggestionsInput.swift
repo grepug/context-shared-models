@@ -12,3 +12,13 @@ public struct WordSuggestionInput: CoSendable {
         self.text = text
     }
 }
+
+public struct SingleWordLookUpInput: CoSendable {
+    public let text: String
+    public let token: ContextModel.TokenItem
+
+    public init(text: String, token: ContextModel.TokenItem) {
+        self.text = text
+        self.token = token
+    }
+}
