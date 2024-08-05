@@ -13,7 +13,7 @@ public struct WordSuggestionInput: CoSendable {
     }
 }
 
-public struct SingleWordLookUpInput: CoSendable {
+public struct TextRangeLookUpInput: CoSendable {
     public let text: String
     public let range: [Int]
 
