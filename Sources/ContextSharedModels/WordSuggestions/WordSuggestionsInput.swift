@@ -15,10 +15,10 @@ public struct WordSuggestionInput: CoSendable {
 
 public struct SingleWordLookUpInput: CoSendable {
     public let text: String
-    public let token: ContextModel.TokenItem
+    public let range: [Int]
 
-    public init(text: String, token: ContextModel.TokenItem) {
+    public init(text: String, range: [Int]) {
         self.text = text
-        self.token = token
+        self.range = range
     }
 }
