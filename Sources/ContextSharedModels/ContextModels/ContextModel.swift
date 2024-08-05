@@ -62,14 +62,16 @@ extension ContextModel {
         public var pos: ContextModel.PartOfSpeech?
         public var lemma: String?
         public var tag: TokenTag?
+        public var isPunctuation: Bool
 
-        public init(id: String = UUID().uuidString, text: String, range: [Int], adjacentText: String, pos: ContextModel.PartOfSpeech? = nil, lemma: String? = nil) {
+        public init(id: String = UUID().uuidString, text: String, range: [Int], adjacentText: String, pos: ContextModel.PartOfSpeech? = nil, lemma: String? = nil, isPunctuation: Bool = false) {
             self.id = id
             self.text = text
             self.range = range
             self.adjacentText = adjacentText
             self.pos = pos
             self.lemma = lemma
+            self.isPunctuation = isPunctuation
         }
     }
 }
