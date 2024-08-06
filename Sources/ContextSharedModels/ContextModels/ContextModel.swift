@@ -22,7 +22,7 @@ public enum ContextModel {
 
 extension ContextModel {
     public enum TokenTag: CoSendable, Hashable {
-        case person, organization, place
+        case person, organization, place, date, other
     }
 
     public protocol TokenKind: CoSendable, Hashable {
