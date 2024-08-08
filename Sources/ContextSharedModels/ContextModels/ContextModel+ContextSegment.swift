@@ -36,6 +36,8 @@ extension ContextModel {
         ///
         /// This is used to link the segment to the entry sense.
         public var entrySense: EntrySense?
+
+        public var dictionaryName: String?
         /// Entry ID of the entry that this segment belongs to.
         ///
         /// This is used to link the segment to the entry.
