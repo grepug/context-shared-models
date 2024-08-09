@@ -1,9 +1,15 @@
 import Foundation
 
 extension Encodable {
+    private var encoder: JSONEncoder {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        return encoder
+    }
+
     public func toString(pretty: Bool = false) throws -> String {
         do {
-            let encoder = JSONEncoder()
+            let encoder = encoder
 
             if pretty {
                 encoder.outputFormatting = .prettyPrinted
@@ -17,7 +23,7 @@ extension Encodable {
 
     public func toData() throws -> Data {
         do {
-            return try JSONEncoder().encode(self)
+            return try encoder.encode(self)
         } catch {
             throw error
         }
@@ -27,7 +33,10 @@ extension Encodable {
 extension Decodable {
     public static func fromData(_ data: Data, print shouldPrint: Bool = true) throws -> Self {
         do {
-            return try JSONDecoder().decode(Self.self, from: data)
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+
+            return try decoder.decode(Self.self, from: data)
         } catch {
             if shouldPrint {
                 print("decoding error: \(error)", "string: \(String(data: data, encoding: .utf8) ?? "no string")")
