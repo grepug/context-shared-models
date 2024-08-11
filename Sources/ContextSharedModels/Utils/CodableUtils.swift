@@ -41,6 +41,10 @@ extension Decodable {
             let errorString = String(describing: error)
 
             if retry && errorString.contains("Expected to decode String but found number instead") {
+                if shouldPrint {
+                    print("retrying with deferredToDate")
+                }
+
                 return try fromData(data, dateDecodingStrategy: .deferredToDate, print: shouldPrint, retry: false)
             } else {
                 if shouldPrint {
