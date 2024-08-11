@@ -11,6 +11,11 @@ extension ContextModel {
         public var text: String
         public var senses: [ContextModel.EntrySense]
 
+        public var orderedPoses: [ContextModel.PartOfSpeech] {
+            var seenPoses = Set<ContextModel.PartOfSpeech>()
+            return senses.filter { seenPoses.insert($0.pos).inserted }.map(\.pos)
+        }
+
         public init(id: ID, createdAt: Date = .now, text: String = "", senses: [ContextModel.EntrySense] = []) {
             self.id = id
             self.createdAt = createdAt
