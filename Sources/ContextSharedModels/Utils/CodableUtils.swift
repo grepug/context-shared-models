@@ -33,7 +33,7 @@ extension Encodable {
 extension Decodable {
     public static func fromData(_ data: Data, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .iso8601, print shouldPrint: Bool = true, retry: Bool = true) throws -> Self {
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
+        decoder.dateDecodingStrategy = dateDecodingStrategy
 
         do {
             return try decoder.decode(Self.self, from: data)
