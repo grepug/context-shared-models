@@ -11,9 +11,9 @@ extension ContextModel {
         public var entryID: String?
         public var pos: PartOfSpeech
         public var localizedTexts: [LocalizedText]
-        public var examples: [CTLocale: String]? = [:]
+        public var examples: [[CTLocale: String]]?
 
-        public init(id: ID, createdAt: Date = .now, entryID: ID? = nil, pos: PartOfSpeech = .noun, localizedTexts: [ContextModel.LocalizedText] = [], examples: [CTLocale: String] = [:]) {
+        public init(id: ID, createdAt: Date = .now, entryID: ID? = nil, pos: PartOfSpeech = .noun, localizedTexts: [ContextModel.LocalizedText] = [], examples: [[CTLocale: String]] = []) {
             self.id = id
             self.createdAt = createdAt
             self.entryID = entryID
