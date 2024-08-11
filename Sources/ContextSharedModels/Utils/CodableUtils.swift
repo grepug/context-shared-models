@@ -31,15 +31,22 @@ extension Encodable {
 }
 
 extension Decodable {
-    public static func fromData(_ data: Data, print shouldPrint: Bool = true) throws -> Self {
-        do {
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .iso8601
+    public static func fromData(_ data: Data, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .iso8601, print shouldPrint: Bool = true, retry: Bool = true) throws -> Self {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
 
+        do {
             return try decoder.decode(Self.self, from: data)
         } catch {
-            if shouldPrint {
-                print("decoding error: \(error)", "string: \(String(data: data, encoding: .utf8) ?? "no string")")
+            let errorString = String(describing: error)
+
+            if retry && errorString.contains("Expected to decode String but found number instead") {
+                return try fromData(data, dateDecodingStrategy: .deferredToDate, print: shouldPrint, retry: false)
+            } else {
+                if shouldPrint {
+                    print("decoding error: \(error)", "string: \(String(data: data, encoding: .utf8) ?? "no string")")
+                }
+
             }
 
             throw error
