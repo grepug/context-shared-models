@@ -13,7 +13,7 @@ extension ContextModel {
         public var localizedTexts: [LocalizedText]
         public var examples: [[CTLocale: String]]?
 
-        public init(id: ID, createdAt: Date = .now, entryID: ID? = nil, pos: PartOfSpeech = .noun, localizedTexts: [ContextModel.LocalizedText] = [], examples: [[CTLocale: String]] = []) {
+        public init(id: ID, createdAt: Date = .now, entryID: ID? = nil, pos: PartOfSpeech = .noun, localizedTexts: [ContextModel.LocalizedText] = [], examples: [[CTLocale: String]]? = nil) {
             self.id = id
             self.createdAt = createdAt
             self.entryID = entryID
