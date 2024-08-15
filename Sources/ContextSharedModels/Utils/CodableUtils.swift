@@ -40,7 +40,7 @@ extension Decodable {
         } catch {
             let errorString = String(describing: error)
 
-            if retry && errorString.contains("Expected to decode String but found number instead") {
+            if retry && errorString.contains("Expected to decode String") {
                 if shouldPrint {
                     print("retrying with deferredToDate")
                 }
