@@ -117,7 +117,7 @@ extension ContextModel {
 
         public init(
             id: ID = Foundation.UUID().uuidString, createdAt: Date = .now, contextID: ID? = nil, segment: Segment = .textRange(.placeholder), text: String = "",
-            lemma: String? = nil, pos: PartOfSpeech? = nil, synonym: String? = nil, sense: LocaledStringDict = [:], desc: LocaledStringDict = [:], phoneticSymbols: PhoniticSymbolDict = [:],
+            lemma: String? = nil, pos: PartOfSpeech? = nil, synonym: String? = nil, sense: LocaledStringDict = [:], desc: LocaledStringDict = [:], entrySense: EntrySense? = nil,
             context: Context? = nil, temporary: Bool = false
         ) {
             self.id = id
@@ -130,6 +130,7 @@ extension ContextModel {
             self.pos = pos
             self.synonym = synonym
             self.sense = sense
+            self.entrySense = entrySense
             self.desc = desc
             self.context = context
         }
