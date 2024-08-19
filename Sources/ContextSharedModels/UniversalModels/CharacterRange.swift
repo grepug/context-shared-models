@@ -10,6 +10,10 @@ import Foundation
 public struct CharacterRange: Hashable, CoSendable {
     public let lowerBound: Int
     public let upperBound: Int
+    
+    public var length: Int {
+        upperBound - lowerBound
+    }
 
     public init(lowerBound: Int, upperBound: Int) {
         precondition(lowerBound <= upperBound)
@@ -52,6 +56,14 @@ extension CharacterRange {
     public static var placeholder: Self {
         .init(lowerBound: 0, upperBound: 1)
     }
+    
+    public mutating func move(locationOffset offset: Int) {
+        self = CharacterRange(lowerBound: lowerBound + offset, upperBound: upperBound + offset)
+    }
+    
+    public func contains(_ index: Int) -> Bool {
+        index >= lowerBound && index <= upperBound
+    }
 }
 
 public typealias SRange = Range<String.Index>
@@ -78,6 +90,10 @@ extension CharacterRange {
         let stringRange = sRange(in: string)
         return NSRange(stringRange, in: string)
     }
+    
+    public var nsRange: NSRange {
+        .init(location: lowerBound, length: upperBound - lowerBound)
+    }
 
     public func aRange(in string: AttributedString) -> ARange {
         let startIndex = string.startIndex
@@ -96,8 +112,12 @@ extension SRange {
         let end = string.distance(from: string.startIndex, to: upperBound)
         return .init(lowerBound: start, upperBound: end)
     }
+    
+    public func cRange(in attributedString: AttributedString) -> CharacterRange {
+        cRange(in: attributedString.string)
+    }
 
-    public func attributedStringRange(in string: String) -> Range<AttributedString.Index> {
+    public func attributedStringRange(in string: String) -> ARange {
         let start = string.distance(from: string.startIndex, to: lowerBound)
         let end = string.distance(from: string.startIndex, to: upperBound)
         let attributedString = AttributedString(string)
@@ -113,5 +133,11 @@ extension NSRange {
     public func cRange(in string: String) -> CharacterRange {
         let sRange = Range(self, in: string)!
         return sRange.cRange(in: string)
+    }
+}
+
+public extension AttributedString {
+    var string: String {
+        String(characters)
     }
 }
