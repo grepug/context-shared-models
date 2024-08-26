@@ -19,7 +19,7 @@ public struct TextRangeLookUpInput: CoSendable {
     public let tokenText: String
     public let ajacentText: String
 
-    init(text: String, range: [Int], tokenText: String, ajacentText: String) {
+    public init(text: String, range: [Int], tokenText: String, ajacentText: String) {
         self.text = text
         self.range = range
         self.tokenText = tokenText
