@@ -27,6 +27,7 @@ extension ContextModel {
         public var createdAt: Date
         public var temporary: Bool
         public var collectionID: ID?
+        public var collectionTitle: String?
         public var text: String?
         public var imageURL: URL?
         public var segments: [SegmentItem] = []
