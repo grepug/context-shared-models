@@ -9,6 +9,10 @@ import Foundation
 
 extension ContextModel {
     public struct Collection: ContextModelKind {
+        enum Cover: String, ContextModelKind, CaseIterable {
+            case `deafult`, dark, light, lighter
+        }
+
         public static var typeName: String {
             "Collection"
         }
@@ -18,6 +22,7 @@ extension ContextModel {
         public var title: String
         public var description: String
         public var coverImageURL: URL?
+        public var coverName: Cover?
         public var directoryID: ID?
         public var temporary: Bool
 
