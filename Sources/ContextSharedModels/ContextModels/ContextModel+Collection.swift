@@ -9,7 +9,7 @@ import Foundation
 
 extension ContextModel {
     public struct Collection: ContextModelKind {
-        public enum Cover: String, ContextModelKind, CaseIterable {
+        public enum Cover: String, CoSendable, CaseIterable {
             case `deafult`, dark, light, lighter
         }
 
