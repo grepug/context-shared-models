@@ -43,6 +43,8 @@ extension ContextModel {
         /// This is used to link the segment to the entry.
         public var entryID: ID?
 
+        public var reviewState: SegmentReview.State
+
         public var temporary: Bool
 
         // if the lemma is nil, then use the text as the lemma
@@ -118,7 +120,7 @@ extension ContextModel {
         public init(
             id: ID = Foundation.UUID().uuidString, createdAt: Date = .now, contextID: ID? = nil, segment: Segment = .textRange(.placeholder), text: String = "",
             lemma: String? = nil, pos: PartOfSpeech? = nil, synonym: String? = nil, sense: LocaledStringDict = [:], desc: LocaledStringDict = [:], entrySense: EntrySense? = nil,
-            context: Context? = nil, temporary: Bool = false
+            context: Context? = nil, reviewState: SegmentReview.State = .unfamiliar, temporary: Bool = false
         ) {
             self.id = id
             self.createdAt = createdAt
@@ -133,12 +135,13 @@ extension ContextModel {
             self.entrySense = entrySense
             self.desc = desc
             self.context = context
+            self.reviewState = reviewState
         }
 
         public init?(
             id: ID, createdAt: Date = .now, contextID: ID? = nil, segmentString: String?, text: String = "", lemma: String? = nil, pos: PartOfSpeech? = nil,
             synonym: String? = nil,
-            sense: LocaledStringDict = [:], desc: LocaledStringDict = [:], context: Context? = nil, temporary: Bool = false
+            sense: LocaledStringDict = [:], desc: LocaledStringDict = [:], context: Context? = nil, reviewState: SegmentReview.State = .unfamiliar, temporary: Bool = false
         ) {
             guard let segmentString,
                 let textSegment = CharacterRange(string: segmentString)
@@ -158,6 +161,7 @@ extension ContextModel {
             self.sense = sense
             self.desc = desc
             self.context = context
+            self.reviewState = reviewState
         }
 
         public init() {
