@@ -98,7 +98,7 @@ extension CharacterRange {
     public func aRange(in string: AttributedString) -> ARange {
         let startIndex = string.startIndex
         let start = string.index(startIndex, offsetByCharacters: lowerBound)
-        let end = string.index(startIndex, offsetByCharacters: upperBound)
+        let end = string.index(startIndex, offsetByCharacters: min(upperBound, string.string.count))
 
         precondition(start <= end)
 
