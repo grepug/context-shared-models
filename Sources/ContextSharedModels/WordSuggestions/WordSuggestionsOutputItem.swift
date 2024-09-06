@@ -26,6 +26,12 @@ public enum CTLocale: String, CodingKeyRepresentable, CoSendable {
     }
 }
 
+extension CTLocale: Comparable {
+    public static func < (lhs: ContextSharedModels.CTLocale, rhs: ContextSharedModels.CTLocale) -> Bool {
+        lhs.rawValue < rhs.rawValue
+    }
+}
+
 public typealias LocaledStringDict = [CTLocale: String]
 
 public struct WordSuggestionsOutputItem: Identifiable, Hashable, CoSendable {
