@@ -20,19 +20,21 @@ public struct OSVersion: CoSendable {
     }
 }
 
-public struct CreateUserInfoRequest: CoSendable {
+public struct DeleteUserInput: CoSendable {}
+
+public struct CreateUserInfoInput: CoSendable {
     public let name: String
     public let created_at: Date
-    public let deviceInfo: DeviceInfoRequest
+    public let deviceInfo: DeviceInfoInput
 
-    public init(name: String, created_at: Date, deviceInfo: DeviceInfoRequest) {
+    public init(name: String, created_at: Date, deviceInfo: DeviceInfoInput) {
         self.name = name
         self.created_at = created_at
         self.deviceInfo = deviceInfo
     }
 }
 
-public struct DeviceInfoRequest: CoSendable {
+public struct DeviceInfoInput: CoSendable {
     public let id: String
     public let modelName: String?
     public let deviceName: String?
