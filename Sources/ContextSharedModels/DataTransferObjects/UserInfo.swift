@@ -1,25 +1,5 @@
 import Foundation
 
-public struct AppVersion: CoSendable {
-    public let version: String
-    public let build: String
-
-    public init(version: String, build: String) {
-        self.version = version
-        self.build = build
-    }
-}
-
-public struct OSVersion: CoSendable {
-    public let name: String
-    public let version: String
-
-    public init(name: String, version: String) {
-        self.name = name
-        self.version = version
-    }
-}
-
 public struct DeleteUserInput: CoSendable {
     public init() {}
 }
@@ -40,14 +20,18 @@ public struct DeviceInfoInput: CoSendable {
     public let id: String
     public let modelName: String?
     public let deviceName: String?
-    public let appVersion: AppVersion?
-    public let osVersion: OSVersion?
+    public let appVersion: String?
+    public let appBuild: String?
+    public let osVersion: String?
+    public let osName: String?
 
-    public init(id: String, modelName: String?, deviceName: String?, appVersion: AppVersion?, osVersion: OSVersion?) {
+    public init(id: String, modelName: String?, deviceName: String?, appVersion: String?, appBuild: String?, osVersion: String?, osName: String?) {
         self.id = id
         self.modelName = modelName
         self.deviceName = deviceName
         self.appVersion = appVersion
+        self.appBuild = appBuild
         self.osVersion = osVersion
+        self.osName = osName
     }
 }
