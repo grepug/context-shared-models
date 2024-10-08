@@ -20,7 +20,9 @@ public struct OSVersion: CoSendable {
     }
 }
 
-public struct DeleteUserInput: CoSendable {}
+public struct DeleteUserInput: CoSendable {
+    public init() {}
+}
 
 public struct CreateUserInfoInput: CoSendable {
     public let name: String
