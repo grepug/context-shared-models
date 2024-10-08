@@ -43,7 +43,7 @@ public struct DeviceInfoInput: CoSendable {
     public let appVersion: AppVersion?
     public let osVersion: OSVersion?
 
-    init(id: String, modelName: String?, deviceName: String?, appVersion: AppVersion?, osVersion: OSVersion?) {
+    public init(id: String, modelName: String?, deviceName: String?, appVersion: AppVersion?, osVersion: OSVersion?) {
         self.id = id
         self.modelName = modelName
         self.deviceName = deviceName
