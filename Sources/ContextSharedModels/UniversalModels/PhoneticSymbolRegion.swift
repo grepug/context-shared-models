@@ -9,7 +9,7 @@ public enum PhoneticSymbolRegion: String, CoSendable, CodingKeyRepresentable, Ca
         }
     }
     
-    var name: String {
+    public var name: String {
         switch self {
         case .uk: "英式"
         case .us: "美式"
