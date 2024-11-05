@@ -24,6 +24,16 @@ public enum CTLocale: String, CodingKeyRepresentable, CoSendable {
             return nil
         }
     }
+    
+    public var name: String {
+        switch self {
+        case .en: "英语"
+        case .zh_Hans: "简体中文"
+        case .zh_Hant: "繁体中文"
+        case .ja: "日语"
+        case .fr: "法语"
+        }
+    }
 }
 
 extension CTLocale: Comparable {

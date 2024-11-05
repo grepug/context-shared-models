@@ -4,10 +4,15 @@ public enum PhoneticSymbolRegion: String, CoSendable, CodingKeyRepresentable, Ca
 
     public var flag: String {
         switch self {
-        case .uk:
-            return "🇬🇧"
-        case .us:
-            return "🇺🇸"
+        case .uk: "🇬🇧"
+        case .us: "🇺🇸"
+        }
+    }
+    
+    var name: String {
+        switch self {
+        case .uk: "英式"
+        case .us: "美式"
         }
     }
 }
