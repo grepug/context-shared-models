@@ -85,6 +85,23 @@ extension CharacterRange {
 
         return start..<end
     }
+    
+    public func sRangeOptional(in string: String) -> SRange? {
+        let startIndex = string.startIndex
+
+        let start = string.index(startIndex, offsetBy: lowerBound, limitedBy: string.endIndex)
+        let end = string.index(startIndex, offsetBy: upperBound, limitedBy: string.endIndex)
+
+        guard let s = start, let e = end else {
+            return nil
+        }
+        
+        guard s <= e else {
+            return nil
+        }
+
+        return s..<e
+    }
 
     public func nsRange(in string: String) -> NSRange {
         let stringRange = sRange(in: string)
@@ -101,6 +118,18 @@ extension CharacterRange {
         let end = string.index(startIndex, offsetByCharacters: min(upperBound, string.string.count))
 
         precondition(start <= end)
+
+        return start..<end
+    }
+    
+    public func aRangeOptional(in string: AttributedString) -> ARange? {
+        let startIndex = string.startIndex
+        let start = string.index(startIndex, offsetByCharacters: lowerBound)
+        let end = string.index(startIndex, offsetByCharacters: min(upperBound, string.string.count))
+
+        guard start <= end else {
+            return nil
+        }
 
         return start..<end
     }
