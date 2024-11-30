@@ -8,6 +8,16 @@
 import Foundation
 
 extension ContextModel {
+    public struct FullTextContextMetadata: Hashable, CoSendable {
+        public let jsSelection: JSSelection
+        public let colorString: String
+        
+        public init(jsSelection: JSSelection, colorString: String) {
+            self.jsSelection = jsSelection
+            self.colorString = colorString
+        }
+    }
+    
     public struct Context: ContextModelKind {
         public static var typeName: String {
             "Context"
@@ -31,7 +41,9 @@ extension ContextModel {
         public var text: String?
         public var imageURL: URL?
         public var segments: [SegmentItem] = []
-
+        
+        public var fullTextMetadata: FullTextContextMetadata?
+        
         public init(id: ID, createdAt: Date = .now, collectionID: ID? = nil, text: String? = nil, imageURL: URL? = nil, segments: [SegmentItem] = [], temporary: Bool = false) {
             self.id = id
             self.createdAt = createdAt
