@@ -8,18 +8,13 @@
 import Foundation
 
 public struct JSSelection: CoSendable, Hashable {
-    public let string: String
-    public let serializedRange: JSRange
-    public let bounds: JSDOMRect
     public let id: String
+    public let string: String
+    public let range: JSRange
 
-    public init(string: String, range: JSRange, bounds: JSDOMRect) {
+    public init(id: String, string: String, range: JSRange) {
+        self.id = id
         self.string = string
-        self.serializedRange = range
-        self.bounds = bounds
-
-        // Convert the properties into a single string
-        let combinedString = string + (try! serializedRange.toString()) + (try! bounds.toString())
-        self.id = combinedString
+        self.range = range
     }
 }
