@@ -8,8 +8,11 @@
 import Foundation
 
 public struct JSRange: CoSendable, Hashable {
-    public let startContainer: String
-    public let endContainer: String
-    public let startOffset: Int
-    public let endOffset: Int
+    public struct Bound: CoSendable, Hashable {
+        public let containerXPath: String?
+        public let offset: Int
+    }
+
+    public let startBound: Bound
+    public let endBound: Bound
 }
