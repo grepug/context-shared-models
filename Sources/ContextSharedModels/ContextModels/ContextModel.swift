@@ -16,6 +16,14 @@ public protocol ContextModelKind: Hashable, Identifiable, CoSendable {
     init()
 }
 
+extension ContextModelKind {
+    public func set<T>(_ keypath: WritableKeyPath<Self, T>, with value: T) -> Self {
+        var me = self
+        me[keyPath: keypath] = value
+        return me
+    }
+}
+
 public enum ContextModel {
     public typealias ID = String
 }

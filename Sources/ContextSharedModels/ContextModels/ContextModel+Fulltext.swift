@@ -19,14 +19,17 @@ extension ContextModel {
         
         public var id: ID
         public var createdAt: Date
+        public var collectionId: ID
         public var html: String
         public var title: String
+        public var temporary: Bool = false
         
-        public init(id: ID, createdAt: Date = .now, html: String = "", title: String = "") {
+        public init(id: ID, createdAt: Date = .now, collectionId: ID = "", html: String = "", title: String = "") {
             self.id = id
             self.createdAt = createdAt
             self.html = html
             self.title = title
+            self.collectionId = collectionId
         }
     }
 }

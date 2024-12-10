@@ -27,8 +27,12 @@ extension ContextModel {
             public var id: ID
             public var title: String
             public var range: JSRange
+            
+            public var rangeString: String? {
+                try? range.toString()
+            }
 
-            public init(id: ID, title: String, range: JSRange) {
+            public init(id: ID, title: String = "", range: JSRange) {
                 self.id = id
                 self.title = title
                 self.range = range
