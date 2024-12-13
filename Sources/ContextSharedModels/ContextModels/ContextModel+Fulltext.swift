@@ -24,12 +24,15 @@ extension ContextModel {
         public var title: String
         public var temporary: Bool = false
         
-        public init(id: ID, createdAt: Date = .now, collectionId: ID = "", html: String = "", title: String = "") {
+        public var htmlFilePath = ""
+        
+        public init(id: ID, createdAt: Date = .now, collectionId: ID = "", htmlFilePath: String = "", html: String = "", title: String = "") {
             self.id = id
             self.createdAt = createdAt
             self.html = html
             self.title = title
             self.collectionId = collectionId
+            self.htmlFilePath = htmlFilePath
         }
     }
 }
