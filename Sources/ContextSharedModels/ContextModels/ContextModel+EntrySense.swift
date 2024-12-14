@@ -1,19 +1,19 @@
 import Foundation
 
 extension ContextModel {
-    public struct EntrySense: ContextModelKind {
+    public struct EntrySense: StringIDContextModelKind {
         public static var typeName: String {
             "EntrySense"
         }
 
-        public var id: ID
+        public var id: StringID
         public var createdAt: Date
-        public var entryID: String?
+        public var entryID: StringID?
         public var pos: PartOfSpeech
         public var localizedTexts: [LocalizedText]
         public var examples: [[CTLocale: String]]?
 
-        public init(id: ID, createdAt: Date = .now, entryID: ID? = nil, pos: PartOfSpeech = .noun, localizedTexts: [ContextModel.LocalizedText] = [], examples: [[CTLocale: String]]? = nil) {
+        public init(id: StringID, createdAt: Date = .now, entryID: StringID? = nil, pos: PartOfSpeech = .noun, localizedTexts: [ContextModel.LocalizedText] = [], examples: [[CTLocale: String]]? = nil) {
             self.id = id
             self.createdAt = createdAt
             self.entryID = entryID
@@ -23,7 +23,7 @@ extension ContextModel {
         }
 
         public init() {
-            self.init(id: UUID().uuidString)
+            self.init(id: .init())
         }
     }
 }

@@ -17,7 +17,7 @@ public struct CreateUserInfoInput: CoSendable {
 }
 
 public struct DeviceInfoInput: CoSendable {
-    public let id: String
+    public let id: UUID
     public let modelName: String?
     public let deviceName: String?
     public let appVersion: String?
@@ -25,7 +25,7 @@ public struct DeviceInfoInput: CoSendable {
     public let osVersion: String?
     public let osName: String?
 
-    public init(id: String, modelName: String?, deviceName: String?, appVersion: String?, appBuild: String?, osVersion: String?, osName: String?) {
+    public init(id: UUID, modelName: String?, deviceName: String?, appVersion: String?, appBuild: String?, osVersion: String?, osName: String?) {
         self.id = id
         self.modelName = modelName
         self.deviceName = deviceName

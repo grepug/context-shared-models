@@ -8,7 +8,7 @@
 import Foundation
 
 extension ContextModel {
-    public struct Context: ContextModelKind {
+    public struct Context: UUIDContextModelKind {
         public static var typeName: String {
             "Context"
         }
@@ -39,10 +39,10 @@ extension ContextModel {
             }
         }
 
-        public var id: ID
+        public var id: UUID
         public var createdAt: Date
         public var temporary: Bool
-        public var collectionID: ID?
+        public var collectionID: UUID?
         public var collectionTitle: String?
         public var text: String?
         public var imageURL: URL?
@@ -50,7 +50,7 @@ extension ContextModel {
         
         public var fulltextItem: FulltextItem?
         
-        public init(id: ID, createdAt: Date = .now, collectionID: ID? = nil, text: String? = nil, imageURL: URL? = nil, segments: [SegmentItem] = [], temporary: Bool = false) {
+        public init(id: UUID, createdAt: Date = .now, collectionID: UUID? = nil, text: String? = nil, imageURL: URL? = nil, segments: [SegmentItem] = [], temporary: Bool = false) {
             self.id = id
             self.createdAt = createdAt
             self.collectionID = collectionID
@@ -61,11 +61,11 @@ extension ContextModel {
         }
 
         public init() {
-            self.init(id: Foundation.UUID().uuidString)
+            self.init(id: .init())
         }
 
         public init(text: String) {
-            self.init(id: Foundation.UUID().uuidString, text: text)
+            self.init(id: .init(), text: text)
         }
     }
 }
