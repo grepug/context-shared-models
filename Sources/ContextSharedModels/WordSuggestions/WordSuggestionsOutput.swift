@@ -2,7 +2,7 @@
 //  WordSuggestionsOutput.swift
 //  ContextSharedModels
 //
-//  Created by Kai on <insert date here>.
+//  Created by Kai on 2024/8/25.
 //
 
 import Foundation
