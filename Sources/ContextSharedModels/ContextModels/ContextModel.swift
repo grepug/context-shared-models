@@ -7,18 +7,48 @@
 
 import Foundation
 
+public enum ContextModelOperation {
+    case insert, update, delete
+    
+    public var localizedDescription: String {
+        switch self {
+        case .insert: "创建"
+        case .update: "修改"
+        case .delete: "删除"
+        }
+    }
+}
+
+public struct ContextModelOperationError: LocalizedError {
+    let modelKind: any ContextModelKind.Type
+    let operation: ContextModelOperation
+    
+    public var errorDescription: String? {
+        "\(modelKind.localizedName) \(operation.localizedDescription) failed"
+    }
+}
+
 public protocol ContextModelKind: Hashable, Identifiable, CoSendable {
     static var typeName: String { get }
 
-    var id: ID { get }
+    var id: ID { get set }
     var createdAt: Date { get }
     
     var normalizedID: IDWrapper { get }
     
     static func unwrapId(normalizedID: IDWrapper) -> ID
     static func normalizeId(id: ID) -> IDWrapper
-
+    
+    static var localizedName: String { get }
+    static func operationError(_ operation: ContextModelOperation) -> LocalizedError
+    
     init()
+}
+
+public extension ContextModelKind {
+    static func operationError(_ operation: ContextModelOperation) -> LocalizedError {
+        ContextModelOperationError(modelKind: self, operation: operation)
+    }
 }
 
 public protocol UUIDContextModelKind: ContextModelKind where ID == UUID {}

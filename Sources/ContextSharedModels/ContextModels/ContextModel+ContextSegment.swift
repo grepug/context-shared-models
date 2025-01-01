@@ -12,6 +12,10 @@ extension ContextModel {
         public static var typeName: String {
             "ContextSegment"
         }
+        
+        public static var localizedName: String {
+            "生词"
+        }
 
         public var id: UUID
         public var createdAt: Date

@@ -16,6 +16,10 @@ extension ContextModel {
         public static var typeName: String {
             "Collection"
         }
+        
+        public static var localizedName: String {
+            "笔记本"
+        }
 
         public var id: UUID
         public var createdAt: Date

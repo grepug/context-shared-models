@@ -12,6 +12,10 @@ extension ContextModel {
         public static var typeName: String {
             "Directory"
         }
+        
+        public static var localizedName: String {
+            "文件夹"
+        }
 
         public var id: UUID
         public var createdAt: Date

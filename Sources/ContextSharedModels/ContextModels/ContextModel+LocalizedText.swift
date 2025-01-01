@@ -5,6 +5,10 @@ extension ContextModel {
         public static var typeName: String {
             "LocalizedText"
         }
+        
+        public static var localizedName: String {
+            "Localized Text"
+        }
 
         public var id: String
         public var createdAt: Date

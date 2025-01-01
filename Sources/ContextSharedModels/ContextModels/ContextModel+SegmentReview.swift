@@ -9,6 +9,10 @@ extension ContextModel {
         public static var typeName: String {
             "SegmentReview"
         }
+        
+        public static var localizedName: String {
+            "Segment Review"
+        }
 
         public var id: UUID
         public var createdAt: Date

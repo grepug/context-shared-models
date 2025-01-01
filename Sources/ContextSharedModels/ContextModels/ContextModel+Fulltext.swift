@@ -16,6 +16,10 @@ extension ContextModel {
         public static var typeName: String {
             "Fulltext"
         }
+        
+        public static var localizedName: String {
+            "原文"
+        }
 
         public var id: UUID
         public var createdAt: Date

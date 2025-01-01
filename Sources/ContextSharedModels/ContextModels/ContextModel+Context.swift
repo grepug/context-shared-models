@@ -12,6 +12,10 @@ extension ContextModel {
         public static var typeName: String {
             "Context"
         }
+        
+        public static var localizedName: String {
+            "语境"
+        }
 
         public struct SegmentItem: Hashable, CoSendable {
             public var id: ID
