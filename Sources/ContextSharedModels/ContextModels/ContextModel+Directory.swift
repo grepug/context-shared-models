@@ -8,18 +8,22 @@
 import Foundation
 
 extension ContextModel {
-    public struct Directory: ContextModelKind {
+    public struct Directory: UUIDContextModelKind {
         public static var typeName: String {
             "Directory"
         }
+        
+        public static var localizedName: String {
+            "文件夹"
+        }
 
-        public var id: ID
+        public var id: UUID
         public var createdAt: Date
-        public var parentID: ID?
+        public var parentID: UUID?
         public var title: String
         public var temporary: Bool
 
-        public init(id: ID, createdAt: Date = .now, parentID: ID? = nil, title: String = "", temporary: Bool = false) {
+        public init(id: UUID, createdAt: Date = .now, parentID: UUID? = nil, title: String = "", temporary: Bool = false) {
             self.id = id
             self.createdAt = createdAt
             self.parentID = parentID
@@ -28,7 +32,7 @@ extension ContextModel {
         }
 
         public init() {
-            self.init(id: UUID().uuidString)
+            self.init(id: .init())
         }
     }
 }

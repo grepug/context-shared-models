@@ -1,10 +1,10 @@
 import Foundation
 
 public struct FetchSegmentReviewMetadataInput: CoSendable {
-    public let collectionId: String
+    public let collectionId: UUID
     public let order: SegmentReviewOrder
 
-    public init(collectionId: String, order: SegmentReviewOrder) {
+    public init(collectionId: UUID, order: SegmentReviewOrder) {
         self.collectionId = collectionId
         self.order = order
     }
@@ -12,11 +12,11 @@ public struct FetchSegmentReviewMetadataInput: CoSendable {
 
 public struct FetchSegmentReviewMetadataOutput: CoSendable {
     public let collectionTitle: String?
-    public let familiarSegmentIds: [String]
-    public let noLatestReviewIds: [String]
-    public let unfamiliarSegmentIds: [String]
+    public let familiarSegmentIds: [UUID]
+    public let noLatestReviewIds: [UUID]
+    public let unfamiliarSegmentIds: [UUID]
 
-    public init(collectionTitle: String?, familiarSegmentIds: [String], noLatestReviewIds: [String], unfamiliarSegmentIds: [String]) {
+    public init(collectionTitle: String?, familiarSegmentIds: [UUID], noLatestReviewIds: [UUID], unfamiliarSegmentIds: [UUID]) {
         self.collectionTitle = collectionTitle
         self.familiarSegmentIds = familiarSegmentIds
         self.noLatestReviewIds = noLatestReviewIds
@@ -25,11 +25,11 @@ public struct FetchSegmentReviewMetadataOutput: CoSendable {
 }
 
 public struct UpdateSegmentReviewStateInput: CoSendable {
-    public let segmentId: String
+    public let segmentId: UUID
     public let state: ContextModel.SegmentReview.State
     public let date: Date
 
-    public init(segmentId: String, state: ContextModel.SegmentReview.State, date: Date) {
+    public init(segmentId: UUID, state: ContextModel.SegmentReview.State, date: Date) {
         self.segmentId = segmentId
         self.state = state
         self.date = date

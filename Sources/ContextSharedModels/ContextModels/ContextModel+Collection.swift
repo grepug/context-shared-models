@@ -8,7 +8,7 @@
 import Foundation
 
 extension ContextModel {
-    public struct Collection: ContextModelKind {
+    public struct Collection: UUIDContextModelKind {
         public enum Cover: String, CoSendable, CaseIterable {
             case `deafult`, dark, light, lighter
         }
@@ -16,18 +16,22 @@ extension ContextModel {
         public static var typeName: String {
             "Collection"
         }
+        
+        public static var localizedName: String {
+            "笔记本"
+        }
 
-        public var id: ID
+        public var id: UUID
         public var createdAt: Date
         public var title: String
         public var description: String
         public var coverImageURL: URL?
         public var builtInCover: Cover?
-        public var directoryID: ID?
+        public var directoryID: UUID?
         public var temporary: Bool
 
         public init(
-            id: ID, createdAt: Date = .now, title: String = "", description: String = "", coverImageURL: URL? = nil, builtInCover cover: Cover? = nil, directoryID: ID? = nil, temporary: Bool = false
+            id: UUID, createdAt: Date = .now, title: String = "", description: String = "", coverImageURL: URL? = nil, builtInCover cover: Cover? = nil, directoryID: UUID? = nil, temporary: Bool = false
         ) {
             self.id = id
             self.createdAt = createdAt
@@ -40,7 +44,7 @@ extension ContextModel {
         }
 
         public init() {
-            self.init(id: UUID().uuidString)
+            self.init(id: .init())
         }
     }
 }

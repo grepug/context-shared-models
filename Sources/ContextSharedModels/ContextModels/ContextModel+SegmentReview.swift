@@ -1,7 +1,7 @@
 import Foundation
 
 extension ContextModel {
-    public struct SegmentReview: ContextModelKind {
+    public struct SegmentReview: UUIDContextModelKind {
         public enum State: String, CoSendable {
             case familiar, unfamiliar
         }
@@ -9,13 +9,17 @@ extension ContextModel {
         public static var typeName: String {
             "SegmentReview"
         }
+        
+        public static var localizedName: String {
+            "Segment Review"
+        }
 
-        public var id: ID
+        public var id: UUID
         public var createdAt: Date
-        public var segmentId: ID?
+        public var segmentId: UUID?
         public var state: State
 
-        public init(id: String, createdAt: Date = .now, state: State = .unfamiliar, segmentId: String? = nil) {
+        public init(id: UUID = .init(), createdAt: Date = .now, state: State = .unfamiliar, segmentId: UUID? = nil) {
             self.id = id
             self.createdAt = createdAt
             self.state = state
@@ -23,7 +27,7 @@ extension ContextModel {
         }
 
         public init() {
-            self.init(id: UUID().uuidString)
+            self.init(id: .init())
         }
     }
 }

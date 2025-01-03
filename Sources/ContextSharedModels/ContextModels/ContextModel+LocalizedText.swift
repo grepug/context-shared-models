@@ -1,17 +1,21 @@
 import Foundation
 
 extension ContextModel {
-    public struct LocalizedText: ContextModelKind {
+    public struct LocalizedText: StringIDContextModelKind {
         public static var typeName: String {
             "LocalizedText"
         }
+        
+        public static var localizedName: String {
+            "Localized Text"
+        }
 
-        public var id: ID
+        public var id: String
         public var createdAt: Date
         public var locale: CTLocale
         public var text: String
 
-        public init(id: ID, createdAt: Date = .now, locale: CTLocale = .en, text: String = "") {
+        public init(id: String, createdAt: Date = .now, locale: CTLocale = .en, text: String = "") {
             self.id = id
             self.createdAt = createdAt
             self.locale = locale
@@ -19,7 +23,7 @@ extension ContextModel {
         }
 
         public init() {
-            self.init(id: UUID().uuidString)
+            self.init(id: .init())
         }
     }
 }

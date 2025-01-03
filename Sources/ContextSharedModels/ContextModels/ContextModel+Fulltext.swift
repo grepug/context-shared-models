@@ -8,28 +8,30 @@
 import Foundation
 
 extension ContextModel {
-    public struct Fulltext: ContextModelKind {
+    public struct Fulltext: UUIDContextModelKind {
         public init() {
-            self.init(id: UUID().uuidString)
+            self.init(id: .init())
         }
-        
+
         public static var typeName: String {
             "Fulltext"
         }
         
-        public var id: ID
+        public static var localizedName: String {
+            "原文"
+        }
+
+        public var id: UUID
         public var createdAt: Date
-        public var collectionId: ID
-        public var html: String
+        public var collectionId: UUID
+        public var htmlFilePath: String
         public var title: String
         public var temporary: Bool = false
-        
-        public var htmlFilePath = ""
-        
-        public init(id: ID, createdAt: Date = .now, collectionId: ID = "", htmlFilePath: String = "", html: String = "", title: String = "") {
+
+        public init(id: UUID, createdAt: Date = .now, collectionId: UUID = .init(), htmlFilePath: String = "", html: String = "", title: String = "") {
             self.id = id
             self.createdAt = createdAt
-            self.html = html
+            self.htmlFilePath = htmlFilePath
             self.title = title
             self.collectionId = collectionId
             self.htmlFilePath = htmlFilePath

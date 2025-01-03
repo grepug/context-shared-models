@@ -8,15 +8,19 @@
 import Foundation
 
 extension ContextModel {
-    public struct ContextSegment: ContextModelKind, TokenKind {
+    public struct ContextSegment: UUIDContextModelKind, TokenKind {
         public static var typeName: String {
             "ContextSegment"
         }
+        
+        public static var localizedName: String {
+            "生词"
+        }
 
-        public var id: ID
+        public var id: UUID
         public var createdAt: Date
-        public var contextID: ID?
-        public var collectionID: ID?
+        public var contextID: UUID?
+        public var collectionID: UUID?
         public var segment: Segment
         public var text: String
         /// Lemma of the text, if the text is a word.
@@ -118,7 +122,7 @@ extension ContextModel {
         }
 
         public init(
-            id: ID = Foundation.UUID().uuidString, createdAt: Date = .now, contextID: ID? = nil, segment: Segment = .textRange(.placeholder), text: String = "",
+            id: UUID = .init(), createdAt: Date = .now, contextID: UUID? = nil, segment: Segment = .textRange(.placeholder), text: String = "",
             lemma: String? = nil, pos: PartOfSpeech? = nil, synonym: String? = nil, sense: LocaledStringDict = [:], desc: LocaledStringDict = [:], entrySense: EntrySense? = nil,
             context: Context? = nil, reviewState: SegmentReview.State = .unfamiliar, temporary: Bool = false
         ) {
@@ -139,7 +143,7 @@ extension ContextModel {
         }
 
         public init?(
-            id: ID, createdAt: Date = .now, contextID: ID? = nil, segmentString: String?, text: String = "", lemma: String? = nil, pos: PartOfSpeech? = nil,
+            id: UUID, createdAt: Date = .now, contextID: UUID? = nil, segmentString: String?, text: String = "", lemma: String? = nil, pos: PartOfSpeech? = nil,
             synonym: String? = nil,
             sense: LocaledStringDict = [:], desc: LocaledStringDict = [:], context: Context? = nil, reviewState: SegmentReview.State = .unfamiliar, temporary: Bool = false
         ) {
@@ -165,7 +169,7 @@ extension ContextModel {
         }
 
         public init() {
-            self.init(id: UUID().uuidString)
+            self.init(id: .init())
         }
     }
 }
