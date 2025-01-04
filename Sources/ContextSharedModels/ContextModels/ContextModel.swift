@@ -9,7 +9,7 @@ import Foundation
 
 public enum ContextModelOperation {
     case insert, update, delete
-    
+
     public var localizedDescription: String {
         switch self {
         case .insert: "创建"
@@ -22,33 +22,41 @@ public enum ContextModelOperation {
 public struct ContextModelOperationError: LocalizedError {
     let modelKind: any ContextModelKind.Type
     let operation: ContextModelOperation
-    
+
     public var errorDescription: String? {
         "\(modelKind.localizedName) \(operation.localizedDescription) failed"
     }
 }
 
+public struct EmptyValidationError: LocalizedError {}
+
 public protocol ContextModelKind: Hashable, Identifiable, CoSendable {
+    associatedtype ValidationError: LocalizedError = EmptyValidationError
+
     static var typeName: String { get }
 
     var id: ID { get set }
     var createdAt: Date { get }
-    
+
     var normalizedID: IDWrapper { get }
-    
+
     static func unwrapId(normalizedID: IDWrapper) -> ID
     static func normalizeId(id: ID) -> IDWrapper
-    
+
     static var localizedName: String { get }
     static func operationError(_ operation: ContextModelOperation) -> LocalizedError
-    
+
+    func testError(_ error: ValidationError) throws
+
     init()
 }
 
-public extension ContextModelKind {
-    static func operationError(_ operation: ContextModelOperation) -> LocalizedError {
+extension ContextModelKind {
+    public static func operationError(_ operation: ContextModelOperation) -> LocalizedError {
         ContextModelOperationError(modelKind: self, operation: operation)
     }
+
+    public func testError(_ error: ValidationError) throws {}
 }
 
 public protocol UUIDContextModelKind: ContextModelKind where ID == UUID {}
@@ -57,12 +65,12 @@ extension UUIDContextModelKind {
     public var normalizedID: IDWrapper {
         .uuid(id)
     }
-    
+
     public static func unwrapId(normalizedID: IDWrapper) -> ID {
         guard case let .uuid(uuid) = normalizedID else { fatalError("ID type mismatch") }
         return uuid
     }
-    
+
     public static func normalizeId(id: ID) -> IDWrapper {
         .uuid(id)
     }
@@ -74,12 +82,12 @@ extension StringIDContextModelKind {
     public var normalizedID: IDWrapper {
         .string(id)
     }
-    
+
     public static func unwrapId(normalizedID: IDWrapper) -> ID {
         guard case let .string(string) = normalizedID else { fatalError("ID type mismatch") }
         return string
     }
-    
+
     public static func normalizeId(id: ID) -> IDWrapper {
         .string(id)
     }
@@ -94,8 +102,9 @@ extension ContextModelKind {
 }
 
 public enum IDWrapper: Hashable, CoSendable {
-    case uuid(UUID), string(String)
-    
+    case uuid(UUID)
+    case string(String)
+
     init?(uuid: UUID?) {
         guard let uuid = uuid else { return nil }
         self = .uuid(uuid)
