@@ -30,11 +30,17 @@ public struct WordSuggestionsOutput: CoSendable {
     }
 }
 
-extension UUID: @retroactive CodingKeyRepresentable {
-    public var codingKey: any CodingKey {
+#if hasFeature(RetroactiveAttribute)
+    extension UUID: @retroactive CodingKeyRepresentable {}
+#else
+    extension UUID: CodingKeyRepresentable {
+    }
+#endif
+extension UUID {
+    public var codingKey: CodingKey {
         return DynamicCodingKey(stringValue: self.uuidString)!
     }
-    
+
     public init?<T>(codingKey: T) where T: CodingKey {
         guard let uuid = UUID(uuidString: codingKey.stringValue) else {
             return nil
@@ -47,11 +53,11 @@ extension UUID: @retroactive CodingKeyRepresentable {
 public struct DynamicCodingKey: CodingKey {
     public var stringValue: String
     public var intValue: Int? { nil }
-    
+
     public init?(stringValue: String) {
         self.stringValue = stringValue
     }
-    
+
     public init?(intValue: Int) {
         return nil
     }
