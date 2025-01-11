@@ -8,13 +8,14 @@
 import Foundation
 
 public enum ContextModelOperation {
-    case insert, update, delete
+    case insert, update, delete, fetch
 
     public var localizedDescription: String {
         switch self {
         case .insert: "创建"
         case .update: "修改"
         case .delete: "删除"
+        case .fetch: "获取"
         }
     }
 }
