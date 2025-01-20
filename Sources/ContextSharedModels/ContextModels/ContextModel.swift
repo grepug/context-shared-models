@@ -41,7 +41,7 @@ public protocol ContextModelKind: Hashable, Identifiable, CoSendable {
 
     var normalizedID: IDWrapper { get }
 
-    static func unwrapId(normalizedID: IDWrapper) -> ID
+    static func unwrapId(normalizedID: IDWrapper) -> ID?
     static func normalizeId(id: ID) -> IDWrapper
 
     static var localizedName: String { get }
@@ -67,8 +67,10 @@ extension UUIDContextModelKind {
         .uuid(id)
     }
 
-    public static func unwrapId(normalizedID: IDWrapper) -> ID {
-        guard case let .uuid(uuid) = normalizedID else { fatalError("ID type mismatch") }
+    public static func unwrapId(normalizedID: IDWrapper) -> ID? {
+        guard case let .uuid(uuid) = normalizedID else {
+            return nil
+        }
         return uuid
     }
 
@@ -84,8 +86,10 @@ extension StringIDContextModelKind {
         .string(id)
     }
 
-    public static func unwrapId(normalizedID: IDWrapper) -> ID {
-        guard case let .string(string) = normalizedID else { fatalError("ID type mismatch") }
+    public static func unwrapId(normalizedID: IDWrapper) -> ID? {
+        guard case let .string(string) = normalizedID else {
+            return nil
+        }
         return string
     }
 
