@@ -5,7 +5,7 @@
 //  Created by Kai Shao on 2024/7/18.
 //
 
-public struct WordLookUpInContextInput: CoSendable {
+public struct WordLookUpInContextInput: PromptInput {
     public let text: String
     public let word: String
     public let langs: String

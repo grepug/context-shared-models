@@ -22,3 +22,18 @@ public struct TextRangeLookUpInput: CoSendable {
         self.token = token
     }
 }
+
+public protocol PromptInput: CoSendable {}
+
+extension PromptInput {
+    public var params: [String: String] {
+        var params = [String: String]()
+        let mirror = Mirror(reflecting: self)
+        for child in mirror.children {
+            if let key = child.label {
+                params[key] = "\(child.value)"
+            }
+        }
+        return params
+    }
+}

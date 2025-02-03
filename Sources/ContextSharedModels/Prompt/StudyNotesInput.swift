@@ -5,7 +5,7 @@
 //  Created by Kai Shao on 2024/7/18.
 //
 
-public struct StudyNotesInput: CoSendable {
+public struct StudyNotesInput: PromptInput {
     public let text: String
     public let target_language: String
 
