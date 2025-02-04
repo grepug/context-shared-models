@@ -12,7 +12,7 @@ extension ContextModel {
         public static var typeName: String {
             "ContextSegment"
         }
-        
+
         public static var localizedName: String {
             "生词"
         }
@@ -104,22 +104,24 @@ extension ContextModel {
             }
         }
 
-        public func subtextRange(from aString: AttributedString) -> Range<AttributedString.Index>? {
-            let string = NSAttributedString(aString).string
+        #if !os(Linux)
+            public func subtextRange(from aString: AttributedString) -> Range<AttributedString.Index>? {
+                let string = NSAttributedString(aString).string
 
-            switch segment {
-            case .textRange(let range):
-                // Guard to ensure the range is within bounds
-                guard range.lowerBound >= 0, range.upperBound <= string.count, range.lowerBound < range.upperBound else {
-                    return nil
+                switch segment {
+                case .textRange(let range):
+                    // Guard to ensure the range is within bounds
+                    guard range.lowerBound >= 0, range.upperBound <= string.count, range.lowerBound < range.upperBound else {
+                        return nil
+                    }
+
+                    let start = aString.index(aString.startIndex, offsetByCharacters: range.lowerBound)
+                    let end = aString.index(aString.startIndex, offsetByCharacters: range.upperBound)
+
+                    return start..<end
                 }
-
-                let start = aString.index(aString.startIndex, offsetByCharacters: range.lowerBound)
-                let end = aString.index(aString.startIndex, offsetByCharacters: range.upperBound)
-
-                return start..<end
             }
-        }
+        #endif
 
         public init(
             id: UUID = .init(), createdAt: Date = .now, contextID: UUID? = nil, segment: Segment = .textRange(.placeholder), text: String = "",
