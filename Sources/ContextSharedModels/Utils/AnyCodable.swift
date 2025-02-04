@@ -8,8 +8,8 @@
 import Foundation
 
 public struct AnyCodable: Codable, Hashable, @unchecked Sendable {
-    let value: AnyHashable
-    
+    public let value: AnyHashable
+
     public init<T: Codable & Hashable>(_ value: T) {
         self.value = value
     }
@@ -57,9 +57,25 @@ public struct AnyCodable: Codable, Hashable, @unchecked Sendable {
             throw EncodingError.invalidValue(value, EncodingError.Context(codingPath: container.codingPath, debugDescription: "Unsupported type"))
         }
     }
-    
+
     public func decoding<T: Codable>(as type: T.Type) throws -> T {
         let data = try JSONEncoder().encode(self)
         return try JSONDecoder().decode(T.self, from: data)
+    }
+
+    public var params: [String: String] {
+        if let dict = value as? [String: String] {
+            return dict
+        }
+
+        var params = [String: String]()
+        let mirror = Mirror(reflecting: value)
+        for child in mirror.children {
+            if let key = child.label {
+                params[key] = "\(child.value)"
+            }
+        }
+
+        return params
     }
 }
