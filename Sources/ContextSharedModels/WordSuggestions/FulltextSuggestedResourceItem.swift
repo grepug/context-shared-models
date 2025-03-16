@@ -1,6 +1,6 @@
 import Foundation
 
-public struct FulltextSuggestedResourceItem: Identifiable, Hashable, Codable {
+public struct FulltextSuggestedResourceItem: Identifiable, Hashable, Codable, Sendable {
     public let id: String
     public let title: String
     public let url: URL
