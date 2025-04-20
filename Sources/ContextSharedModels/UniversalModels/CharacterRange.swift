@@ -10,7 +10,7 @@ import Foundation
 public struct CharacterRange: Hashable, CoSendable {
     public let lowerBound: Int
     public let upperBound: Int
-    
+
     public var length: Int {
         upperBound - lowerBound
     }
@@ -56,11 +56,11 @@ extension CharacterRange {
     public static var placeholder: Self {
         .init(lowerBound: 0, upperBound: 1)
     }
-    
+
     public mutating func move(locationOffset offset: Int) {
         self = CharacterRange(lowerBound: lowerBound + offset, upperBound: upperBound + offset)
     }
-    
+
     public func contains(_ index: Int) -> Bool {
         index >= lowerBound && index <= upperBound
     }
@@ -85,7 +85,7 @@ extension CharacterRange {
 
         return start..<end
     }
-    
+
     public func sRangeOptional(in string: String) -> SRange? {
         let startIndex = string.startIndex
 
@@ -95,7 +95,7 @@ extension CharacterRange {
         guard let s = start, let e = end else {
             return nil
         }
-        
+
         guard s <= e else {
             return nil
         }
@@ -107,10 +107,6 @@ extension CharacterRange {
         let stringRange = sRange(in: string)
         return NSRange(stringRange, in: string)
     }
-    
-    public var nsRange: NSRange {
-        .init(location: lowerBound, length: upperBound - lowerBound)
-    }
 
     public func aRange(in string: AttributedString) -> ARange {
         let startIndex = string.startIndex
@@ -121,7 +117,7 @@ extension CharacterRange {
 
         return start..<end
     }
-    
+
     public func aRangeOptional(in string: AttributedString) -> ARange? {
         let startIndex = string.startIndex
         let start = string.index(startIndex, offsetByCharacters: lowerBound)
@@ -141,7 +137,7 @@ extension SRange {
         let end = string.distance(from: string.startIndex, to: upperBound)
         return .init(lowerBound: start, upperBound: end)
     }
-    
+
     public func cRange(in attributedString: AttributedString) -> CharacterRange {
         cRange(in: attributedString.string)
     }
@@ -165,8 +161,8 @@ extension NSRange {
     }
 }
 
-public extension AttributedString {
-    var string: String {
+extension AttributedString {
+    public var string: String {
         String(characters)
     }
 }
