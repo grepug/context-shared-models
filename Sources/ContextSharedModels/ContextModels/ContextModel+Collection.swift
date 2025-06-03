@@ -28,10 +28,20 @@ extension ContextModel {
         public var coverImageURL: URL?
         public var builtInCover: Cover?
         public var directoryID: UUID?
+        public var iconKey: String?
+        
         public var temporary: Bool
 
         public init(
-            id: UUID, createdAt: Date = .now, title: String = "", description: String = "", coverImageURL: URL? = nil, builtInCover cover: Cover? = nil, directoryID: UUID? = nil, temporary: Bool = false
+            id: UUID,
+            createdAt: Date = .now,
+            title: String = "",
+            iconKey: String? = nil,
+            description: String = "",
+            coverImageURL: URL? = nil,
+            builtInCover cover: Cover? = nil,
+            directoryID: UUID? = nil,
+            temporary: Bool = false,
         ) {
             self.id = id
             self.createdAt = createdAt
@@ -41,6 +51,7 @@ extension ContextModel {
             self.directoryID = directoryID
             self.temporary = temporary
             self.builtInCover = cover
+            self.iconKey = iconKey
         }
 
         public init() {
