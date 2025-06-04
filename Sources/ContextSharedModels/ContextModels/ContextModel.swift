@@ -6,6 +6,11 @@
 //
 
 import Foundation
+#if canImport(CoreTransferable)
+import CoreTransferable
+#else
+public protocol Transferable: Sendable {}
+#endif
 
 public enum ContextModelOperation {
     case insert, update, delete, fetch
@@ -31,7 +36,7 @@ public struct ContextModelOperationError: LocalizedError {
 
 public struct EmptyValidationError: LocalizedError {}
 
-public protocol ContextModelKind: Hashable, Identifiable, CoSendable {
+public protocol ContextModelKind: Hashable, Identifiable, CoSendable, Transferable {
     associatedtype ValidationError: LocalizedError = EmptyValidationError
 
     static var typeName: String { get }
@@ -53,6 +58,12 @@ public protocol ContextModelKind: Hashable, Identifiable, CoSendable {
 }
 
 extension ContextModelKind {
+    #if canImport(CoreTransferable)
+    public static var transferRepresentation: some TransferRepresentation {
+        CodableRepresentation(for: Self.self, contentType: .init(exportedAs: "com.visionapp.contextmodel.\(Self.typeName)".lowercased()))
+    }
+    #endif
+    
     public static func operationError(_ operation: ContextModelOperation) -> LocalizedError {
         ContextModelOperationError(modelKind: self, operation: operation)
     }
