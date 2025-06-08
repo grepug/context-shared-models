@@ -16,7 +16,7 @@ extension ContextModel {
         public static var typeName: String {
             "Fulltext"
         }
-        
+
         public static var localizedName: String {
             "原文"
         }
@@ -27,14 +27,24 @@ extension ContextModel {
         public var htmlFilePath: String
         public var title: String
         public var temporary: Bool = false
+        public var cacheState: Int?
 
-        public init(id: UUID, createdAt: Date = .now, collectionId: UUID = .init(), htmlFilePath: String = "", html: String = "", title: String = "") {
+        public init(
+            id: UUID,
+            createdAt: Date = .now,
+            collectionId: UUID = .init(),
+            htmlFilePath: String = "",
+            html: String = "",
+            title: String = "",
+            cacheState: Int = 0
+        ) {
             self.id = id
             self.createdAt = createdAt
             self.htmlFilePath = htmlFilePath
             self.title = title
             self.collectionId = collectionId
             self.htmlFilePath = htmlFilePath
+            self.cacheState = cacheState
         }
     }
 }

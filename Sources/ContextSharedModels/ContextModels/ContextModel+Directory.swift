@@ -12,7 +12,7 @@ extension ContextModel {
         public static var typeName: String {
             "Directory"
         }
-        
+
         public static var localizedName: String {
             "文件夹"
         }
@@ -22,13 +22,22 @@ extension ContextModel {
         public var parentID: UUID?
         public var title: String
         public var temporary: Bool
+        public var cacheState: Int?
 
-        public init(id: UUID, createdAt: Date = .now, parentID: UUID? = nil, title: String = "", temporary: Bool = false) {
+        public init(
+            id: UUID,
+            createdAt: Date = .now,
+            parentID: UUID? = nil,
+            title: String = "",
+            temporary: Bool = false,
+            cacheState: Int = 0,
+        ) {
             self.id = id
             self.createdAt = createdAt
             self.parentID = parentID
             self.title = title
             self.temporary = temporary
+            self.cacheState = cacheState
         }
 
         public init() {

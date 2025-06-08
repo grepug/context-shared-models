@@ -6,10 +6,11 @@
 //
 
 import Foundation
+
 #if canImport(CoreTransferable)
-import CoreTransferable
+    import CoreTransferable
 #else
-public protocol Transferable: Sendable {}
+    public protocol Transferable: Sendable {}
 #endif
 
 public enum ContextModelOperation {
@@ -43,6 +44,7 @@ public protocol ContextModelKind: Hashable, Identifiable, CoSendable, Transferab
 
     var id: ID { get set }
     var createdAt: Date { get }
+    var cacheState: Int? { get set }
 
     var normalizedID: IDWrapper { get }
 
@@ -59,11 +61,11 @@ public protocol ContextModelKind: Hashable, Identifiable, CoSendable, Transferab
 
 extension ContextModelKind {
     #if canImport(CoreTransferable)
-    public static var transferRepresentation: some TransferRepresentation {
-        CodableRepresentation(for: Self.self, contentType: .init(exportedAs: "com.visionapp.contextmodel.\(Self.typeName)".lowercased()))
-    }
+        public static var transferRepresentation: some TransferRepresentation {
+            CodableRepresentation(for: Self.self, contentType: .init(exportedAs: "com.visionapp.contextmodel.\(Self.typeName)".lowercased()))
+        }
     #endif
-    
+
     public static func operationError(_ operation: ContextModelOperation) -> LocalizedError {
         ContextModelOperationError(modelKind: self, operation: operation)
     }

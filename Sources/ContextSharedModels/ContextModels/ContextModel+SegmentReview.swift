@@ -9,7 +9,7 @@ extension ContextModel {
         public static var typeName: String {
             "SegmentReview"
         }
-        
+
         public static var localizedName: String {
             "Segment Review"
         }
@@ -18,12 +18,20 @@ extension ContextModel {
         public var createdAt: Date
         public var segmentId: UUID?
         public var state: State
+        public var cacheState: Int?
 
-        public init(id: UUID = .init(), createdAt: Date = .now, state: State = .unfamiliar, segmentId: UUID? = nil) {
+        public init(
+            id: UUID = .init(),
+            createdAt: Date = .now,
+            state: State = .unfamiliar,
+            segmentId: UUID? = nil,
+            cacheState: Int = 0
+        ) {
             self.id = id
             self.createdAt = createdAt
             self.state = state
             self.segmentId = segmentId
+            self.cacheState = cacheState
         }
 
         public init() {

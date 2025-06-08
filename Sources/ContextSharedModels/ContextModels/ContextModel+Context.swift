@@ -80,8 +80,18 @@ extension ContextModel {
         public var segments: [SegmentItem] = []
 
         public var fulltextItem: FulltextItem?
+        public var cacheState: Int?
 
-        public init(id: UUID, createdAt: Date = .now, collectionID: UUID? = nil, text: String? = nil, imageURL: URL? = nil, segments: [SegmentItem] = [], temporary: Bool = false) {
+        public init(
+            id: UUID,
+            createdAt: Date = .now,
+            collectionID: UUID? = nil,
+            text: String? = nil,
+            imageURL: URL? = nil,
+            segments: [SegmentItem] = [],
+            temporary: Bool = false,
+            cacheState: Int = 0,
+        ) {
             self.id = id
             self.createdAt = createdAt
             self.collectionID = collectionID
@@ -89,6 +99,7 @@ extension ContextModel {
             self.imageURL = imageURL
             self.segments = segments
             self.temporary = temporary
+            self.cacheState = cacheState
         }
 
         public init() {

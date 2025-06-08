@@ -56,6 +56,8 @@ extension ContextModel {
             lemma ?? text
         }
 
+        public var cacheState: Int?
+
         public var range: [Int] {
             get {
                 switch segment {
@@ -124,9 +126,21 @@ extension ContextModel {
         #endif
 
         public init(
-            id: UUID = .init(), createdAt: Date = .now, contextID: UUID? = nil, segment: Segment = .textRange(.placeholder), text: String = "",
-            lemma: String? = nil, pos: PartOfSpeech? = nil, synonym: String? = nil, sense: LocaledStringDict = [:], desc: LocaledStringDict = [:], entrySense: EntrySense? = nil,
-            context: Context? = nil, reviewState: SegmentReview.State = .unfamiliar, temporary: Bool = false
+            id: UUID = .init(),
+            createdAt: Date = .now,
+            contextID: UUID? = nil,
+            segment: Segment = .textRange(.placeholder),
+            text: String = "",
+            lemma: String? = nil,
+            pos: PartOfSpeech? = nil,
+            synonym: String? = nil,
+            sense: LocaledStringDict = [:],
+            desc: LocaledStringDict = [:],
+            entrySense: EntrySense? = nil,
+            context: Context? = nil,
+            reviewState: SegmentReview.State = .unfamiliar,
+            temporary: Bool = false,
+            cacheState: Int = 0
         ) {
             self.id = id
             self.createdAt = createdAt
@@ -142,12 +156,24 @@ extension ContextModel {
             self.desc = desc
             self.context = context
             self.reviewState = reviewState
+            self.cacheState = cacheState
         }
 
         public init?(
-            id: UUID, createdAt: Date = .now, contextID: UUID? = nil, segmentString: String?, text: String = "", lemma: String? = nil, pos: PartOfSpeech? = nil,
+            id: UUID,
+            createdAt: Date = .now,
+            contextID: UUID? = nil,
+            segmentString: String?,
+            text: String = "",
+            lemma: String? = nil,
+            pos: PartOfSpeech? = nil,
             synonym: String? = nil,
-            sense: LocaledStringDict = [:], desc: LocaledStringDict = [:], context: Context? = nil, reviewState: SegmentReview.State = .unfamiliar, temporary: Bool = false
+            sense: LocaledStringDict = [:],
+            desc: LocaledStringDict = [:],
+            context: Context? = nil,
+            reviewState: SegmentReview.State = .unfamiliar,
+            temporary: Bool = false,
+            cacheState: Int = 0
         ) {
             guard let segmentString,
                 let textSegment = CharacterRange(string: segmentString)
@@ -168,6 +194,7 @@ extension ContextModel {
             self.desc = desc
             self.context = context
             self.reviewState = reviewState
+            self.cacheState = cacheState
         }
 
         public init() {

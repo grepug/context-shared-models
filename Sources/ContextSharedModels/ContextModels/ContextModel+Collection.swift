@@ -16,7 +16,7 @@ extension ContextModel {
         public static var typeName: String {
             "Collection"
         }
-        
+
         public static var localizedName: String {
             "笔记本"
         }
@@ -29,8 +29,9 @@ extension ContextModel {
         public var builtInCover: Cover?
         public var directoryID: UUID?
         public var iconKey: String?
-        
+
         public var temporary: Bool
+        public var cacheState: Int?
 
         public init(
             id: UUID,
@@ -42,6 +43,7 @@ extension ContextModel {
             builtInCover cover: Cover? = nil,
             directoryID: UUID? = nil,
             temporary: Bool = false,
+            cacheState: Int = 0,
         ) {
             self.id = id
             self.createdAt = createdAt
@@ -52,6 +54,7 @@ extension ContextModel {
             self.temporary = temporary
             self.builtInCover = cover
             self.iconKey = iconKey
+            self.cacheState = cacheState
         }
 
         public init() {
