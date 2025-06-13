@@ -12,13 +12,13 @@ extension ContextModel {
         public enum ValidationError: LocalizedError {
             case editContextWithFulltext
             case textTooLong
+            case cannotMoveWithFulltext
 
             public var errorDescription: String? {
                 switch self {
-                case .editContextWithFulltext:
-                    return "语境来自原文，无法编辑"
-                case .textTooLong:
-                    return "文本过长，建议创建为原文"
+                case .editContextWithFulltext: "语境来自文章，无法编辑"
+                case .textTooLong: "文本过长，建议创建为原文"
+                case .cannotMoveWithFulltext: "无法移动来自文章的语境"
                 }
             }
         }
@@ -39,6 +39,10 @@ extension ContextModel {
                 }
             case .textTooLong:
                 if let text = text, text.count >= 5 * 100 {
+                    throw error
+                }
+            case .cannotMoveWithFulltext:
+                if fulltextItem != nil {
                     throw error
                 }
             }
