@@ -107,6 +107,13 @@ extension CharacterRange {
         let stringRange = sRange(in: string)
         return NSRange(stringRange, in: string)
     }
+    
+    public func nsRangeOptional(in string: String) -> NSRange? {
+        guard let range = sRangeOptional(in: string) else {
+            return nil
+        }
+        return NSRange(range, in: string)
+    }
 
     public func aRange(in string: AttributedString) -> ARange {
         let startIndex = string.startIndex
