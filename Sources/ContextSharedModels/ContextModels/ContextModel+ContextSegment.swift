@@ -215,4 +215,21 @@ extension ContextModel.ContextSegment {
             return nil
         }
     }
+
+    public enum ValidationError: LocalizedError {
+        case dataIncomplete
+    }
+
+    public func testError(_ error: ValidationError) throws {
+        switch error {
+        case .dataIncomplete:
+            if entrySense == nil && sense?.isEmpty != false {
+                throw error
+            }
+
+            if desc.isEmpty != false {
+                throw error
+            }
+        }
+    }
 }
