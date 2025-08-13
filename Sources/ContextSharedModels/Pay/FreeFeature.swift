@@ -1,6 +1,6 @@
 import Foundation
 
-public enum FreeFeature: String, CaseIterable {
+public enum FreeFeature: String, CaseIterable, Sendable, Codable, Hashable {
     case importFulltext
     case addContextSegment
     case contextTranslation
@@ -28,7 +28,7 @@ public enum FreeFeature: String, CaseIterable {
     }
 }
 
-public struct FreeFeatureLimitInfo {
+public struct FreeFeatureLimitInfo: Sendable, Codable, Hashable {
     public var featureCanUse: [FreeFeature: Bool]
     public var featureNextAvailableDate: [FreeFeature: Date?]
 
