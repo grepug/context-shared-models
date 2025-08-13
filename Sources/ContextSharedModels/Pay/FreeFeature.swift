@@ -29,6 +29,11 @@ public enum FreeFeature: String, CaseIterable {
 }
 
 public struct FreeFeatureLimitInfo {
-    public var featureCanUse: [FreeFeature: Bool] = [:]
-    public var featureNextAvailableDate: [FreeFeature: Date?] = [:]
+    public var featureCanUse: [FreeFeature: Bool]
+    public var featureNextAvailableDate: [FreeFeature: Date?]
+
+    public init() {
+        featureCanUse = [:]
+        featureNextAvailableDate = [:]
+    }
 }
