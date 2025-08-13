@@ -85,6 +85,7 @@ extension ContextModel {
 
         public var fulltextItem: FulltextItem?
         public var cacheState: Int?
+        public var genImagePath: String?
 
         public init(
             id: UUID,
