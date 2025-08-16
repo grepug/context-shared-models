@@ -85,6 +85,7 @@ extension ContextModel {
 
         public var fulltextItem: FulltextItem?
         public var cacheState: Int?
+        public var version: Int = 0
 
         public init(
             id: UUID,
