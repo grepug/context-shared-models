@@ -8,19 +8,22 @@
 import Foundation
 
 public struct AnyCodable: Codable, Hashable, @unchecked Sendable {
-    public let value: AnyHashable
+    public let value: AnyHashable?
 
     public init<T: Codable & Hashable>(_ value: T) {
         self.value = value
     }
 
-    public init(_ value: AnyHashable) {
+    public init(_ value: AnyHashable?) {
         self.value = value
     }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let intValue = try? container.decode(Int.self) {
+
+        if container.decodeNil() {
+            value = nil
+        } else if let intValue = try? container.decode(Int.self) {
             value = intValue
         } else if let stringValue = try? container.decode(String.self) {
             value = stringValue
@@ -39,7 +42,13 @@ public struct AnyCodable: Codable, Hashable, @unchecked Sendable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
-        if let intValue = value as? Int {
+
+        // Handle nil values more robustly
+        if value == nil {
+            try container.encodeNil()
+        } else if isNilValue(value) {
+            try container.encodeNil()
+        } else if let intValue = value as? Int {
             try container.encode(intValue)
         } else if let stringValue = value as? String {
             try container.encode(stringValue)
@@ -54,13 +63,43 @@ public struct AnyCodable: Codable, Hashable, @unchecked Sendable {
             let anyCodableDictionary = dictionaryValue.mapValues { AnyCodable($0) }
             try container.encode(anyCodableDictionary)
         } else {
-            throw EncodingError.invalidValue(value, EncodingError.Context(codingPath: container.codingPath, debugDescription: "Unsupported type"))
+            // More detailed error information
+            let valueDescription = String(describing: value)
+            let valueType = type(of: value)
+            throw EncodingError.invalidValue(
+                valueDescription,
+                EncodingError.Context(
+                    codingPath: container.codingPath,
+                    debugDescription: "Unsupported type: \(valueType), value: \(valueDescription)"
+                )
+            )
         }
     }
 
-    public func decoding<T: Codable>(as type: T.Type) throws -> T {
-        let data = try JSONEncoder().encode(self)
-        return try JSONDecoder().decode(T.self, from: data)
+    private func isNilValue(_ value: AnyHashable?) -> Bool {
+        guard let value = value else { return true }
+
+        // Check if the value is an Optional that contains nil
+        let mirror = Mirror(reflecting: value)
+        if mirror.displayStyle == .optional {
+            return mirror.children.isEmpty
+        }
+
+        // Check if the AnyHashable itself contains a nil value by examining its base
+        let anyHashableMirror = Mirror(reflecting: value)
+        if let child = anyHashableMirror.children.first {
+            let childMirror = Mirror(reflecting: child.value)
+            if childMirror.displayStyle == .optional && childMirror.children.isEmpty {
+                return true
+            }
+        }
+
+        return false
+    }
+
+    public func decoding<T: Codable>(as type: T.Type, encoder: JSONEncoder = .init(), decoder: JSONDecoder = .init()) throws -> T {
+        let data = try encoder.encode(self)
+        return try decoder.decode(T.self, from: data)
     }
 
     public var params: [String: String] {
@@ -69,6 +108,11 @@ public struct AnyCodable: Codable, Hashable, @unchecked Sendable {
         }
 
         var params = [String: String]()
+
+        guard let value else {
+            return params
+        }
+
         let mirror = Mirror(reflecting: value)
         for child in mirror.children {
             if let key = child.label {

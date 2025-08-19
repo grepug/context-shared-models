@@ -16,17 +16,20 @@ extension ContextModel {
         public var createdAt: Date
         public var assetPath: String?
         public var text: String
+        public var subtitle: AnyCodable?
 
         public init(
             id: UUID,
             createdAt: Date = .now,
             assetPath: String? = nil,
             text: String = "",
+            subtitle: AnyCodable? = nil
         ) {
             self.id = id
             self.createdAt = createdAt
             self.assetPath = assetPath
             self.text = text
+            self.subtitle = subtitle
         }
 
         public init() {
