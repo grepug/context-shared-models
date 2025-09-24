@@ -1,48 +1,62 @@
 import Foundation
 
 public struct SoundItem: Codable, Hashable, Sendable {
-    public var symbols: PhoniticSymbolDict = .init()
-    public var audioData: [PhoneticSymbolRegion: Data] = .init()
+    public enum Audio: Codable, Hashable, Sendable {
+        case data(Data)
+        case url(URL)
+        case storagePath(String)
+    }
+
+    public struct RegionItem: Codable, Hashable, Sendable {
+        public var symbol: String
+        public var audio: Audio
+
+        public init(symbol: String, audio: Audio) {
+            self.symbol = symbol
+            self.audio = audio
+        }
+    }
+
+    public var items: [PhoneticSymbolRegion: RegionItem]
 
     public var isEmpty: Bool {
-        symbols.isEmpty || audioData.isEmpty
+        items.isEmpty
     }
 
     public var sortedRegions: [PhoneticSymbolRegion] {
-        symbols.keys.sorted { $0.rawValue < $1.rawValue }
+        items.keys.sorted { $0.rawValue < $1.rawValue }
     }
 
-    public func audioData(preferredRegion: PhoneticSymbolRegion) -> Data? {
-        if let data = audioData[preferredRegion] {
-            return data
+    public func audio(preferredRegion: PhoneticSymbolRegion) -> Audio? {
+        if let item = items[preferredRegion] {
+            return item.audio
         }
 
         // Fallback to any available region
-        return audioData.values.first
+        if let firstItem = items.first {
+            return firstItem.value.audio
+        }
+
+        return nil
     }
 
     public func region(preferredRegion: PhoneticSymbolRegion) -> PhoneticSymbolRegion? {
-        if audioData[preferredRegion] != nil {
+        if items[preferredRegion] != nil {
             return preferredRegion
         }
 
         // Fallback to any available region
-        return audioData.keys.first
+        return items.keys.first
     }
 
-    public init(
-        symbols: PhoniticSymbolDict = .init(),
-        audioData: [PhoneticSymbolRegion: Data] = .init()
-    ) {
-        self.symbols = symbols
-        self.audioData = audioData
+    public init(items: [PhoneticSymbolRegion: RegionItem] = [:]) {
+        self.items = items
     }
 
-    static let mock = SoundItem(
-        symbols: [.us: "sʌn", .uk: "sʌn"],
-        audioData: [
-            .us: Data(base64Encoded: "UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA=")!,
-            .uk: Data(base64Encoded: "UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA=")!,
+    public static let mock = SoundItem(
+        items: [
+            .us: RegionItem(symbol: "sʌn", audio: .data(Data(base64Encoded: "UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA=")!)),
+            .uk: RegionItem(symbol: "sʌn", audio: .data(Data(base64Encoded: "UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA=")!)),
         ]
     )
 }
