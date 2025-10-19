@@ -25,6 +25,7 @@ extension ContextModel {
         public var createdAt: Date
         public var collectionId: UUID
         public var htmlFilePath: String
+        public var epubFilePath: String?
         public var title: String
         public var temporary: Bool = false
         public var cacheState: Int?
@@ -34,6 +35,7 @@ extension ContextModel {
             createdAt: Date = .now,
             collectionId: UUID = .init(),
             htmlFilePath: String = "",
+            epubFilePath: String? = nil,
             html: String = "",
             title: String = "",
             cacheState: Int = 0
@@ -41,6 +43,7 @@ extension ContextModel {
             self.id = id
             self.createdAt = createdAt
             self.htmlFilePath = htmlFilePath
+            self.epubFilePath = epubFilePath
             self.title = title
             self.collectionId = collectionId
             self.htmlFilePath = htmlFilePath

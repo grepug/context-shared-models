@@ -84,6 +84,7 @@ extension ContextModel {
         public var segments: [SegmentItem] = []
 
         public var fulltextItem: FulltextItem?
+        public var fulltextItemV2: AnyCodable?
         public var cacheState: Int?
 
         var storedVersion: Int?
