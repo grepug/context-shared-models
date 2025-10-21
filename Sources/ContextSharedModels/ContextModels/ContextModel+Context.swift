@@ -73,6 +73,24 @@ extension ContextModel {
                 self.range = range
             }
         }
+        
+        public struct FulltextItemV2: Hashable, CoSendable {
+            public var id: ID
+            public var title: String
+            public var range: AnyCodable
+            public var epubSpineId: String?
+            
+            public var rangeString: String? {
+                try? range.toString()
+            }
+
+            public init(id: ID, title: String = "", range: AnyCodable, epubSpineId: String? = nil) {
+                self.id = id
+                self.title = title
+                self.range = range
+                self.epubSpineId = epubSpineId
+            }
+        }
 
         public var id: UUID
         public var createdAt: Date
@@ -84,7 +102,7 @@ extension ContextModel {
         public var segments: [SegmentItem] = []
 
         public var fulltextItem: FulltextItem?
-        public var fulltextItemV2: AnyCodable?
+        public var fulltextItemV2: FulltextItemV2?
         public var cacheState: Int?
 
         var storedVersion: Int?
