@@ -34,7 +34,7 @@ extension ContextModel {
         public func testError(_ error: ValidationError) throws {
             switch error {
             case .editContextWithFulltext:
-                if fulltextItem != nil {
+                if fromFulltext {
                     throw error
                 }
             case .textTooLong:
@@ -42,7 +42,7 @@ extension ContextModel {
                     throw error
                 }
             case .cannotMoveWithFulltext:
-                if fulltextItem != nil {
+                if fromFulltext {
                     throw error
                 }
             }
@@ -104,6 +104,24 @@ extension ContextModel {
         public var fulltextItem: FulltextItem?
         public var fulltextItemV2: FulltextItemV2?
         public var cacheState: Int?
+        
+        public var fromFulltext: Bool {
+            fulltextItem != nil || fulltextItemV2 != nil
+        }
+        
+        public var fulltextItemTitle: String? {
+            fulltextItem?.title ?? fulltextItemV2?.title
+        }
+        
+        public var fulltextItemSymbol: String? {
+            if fulltextItem != nil {
+                "newspaper"
+            } else if fulltextItemV2?.epubSpineId != nil {
+                "book.closed"
+            } else {
+                nil
+            }
+        }
 
         var storedVersion: Int?
         public var version: Int {
