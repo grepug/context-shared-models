@@ -26,6 +26,7 @@ extension ContextModel {
         public var collectionId: UUID
         public var htmlFilePath: String
         public var epubFilePath: String?
+        public var fileSize: Int64?
         public var title: String
         public var temporary: Bool = false
         public var cacheState: Int?
