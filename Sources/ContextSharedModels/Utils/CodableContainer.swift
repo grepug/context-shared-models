@@ -102,7 +102,7 @@ import Foundation
 /// - Want to work with values of unknown types at runtime
 /// - Need to support both `Codable` and non-`Codable` types
 ///
-public struct CodableContainer: Codable, Sendable {
+public struct CodableContainer: Codable, Sendable, Hashable {
     /// The JSON string representation of the encoded value.
     ///
     /// This property contains the UTF-8 encoded JSON representation of the value
